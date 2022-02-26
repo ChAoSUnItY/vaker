@@ -1,6 +1,5 @@
 # Binaries for programs and plugins
 main
-vaker
 *.exe
 *.exe~
 *.so
