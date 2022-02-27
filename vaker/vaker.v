@@ -8,8 +8,12 @@ const (
 
 // Language Boundaries
 pub const (
-	lb_en = LangaugeBoundary{65, 122, [rune(91), 92, 93, 94, 95, 96]}
-	lb_cn = LangaugeBoundary{19968, 40869, []}
+	lb_eng = LangaugeBoundary{65, 122, [rune(91), 92, 93, 94, 95, 96]}
+	lb_chi = LangaugeBoundary{19968, 40869, []}
+	lb_rus = LangaugeBoundary{1025, 1105, []}
+	lb_jpn = LangaugeBoundary{12353, 12534, [rune(12436), 12437, 12438, 12439, 12440, 12441, 12442, 12443, 12444, 12445, 12446, 12447, 12448]}
+	lb_kor = LangaugeBoundary{44032, 55203, []}
+	lb_emj = LangaugeBoundary{126976, 129535, []}
 )
 
 struct LangaugeBoundary {
@@ -19,7 +23,7 @@ struct LangaugeBoundary {
 }
 
 pub struct DataFaker {
-	lb &LangaugeBoundary = vaker.lb_en
+	lb &LangaugeBoundary = vaker.lb_eng
 }
 
 // Faking data with default values
@@ -32,7 +36,7 @@ pub fn fake_data<T>(t &T) {
 		}
 	} $else $if T.typ is string {
 		unsafe {
-			*t = fake_string(10, &vaker.lb_en)
+			*t = fake_string(10, &vaker.lb_eng)
 		}
 	} $else {
 		$for f in T.fields {

@@ -19,7 +19,7 @@ fn main() {
 	mut s := [St{}, St{}]
 	a := ['', '']
 	df := vaker.DataFaker{
-		lb: &vaker.lb_cn
+		lb: &vaker.lb_jpn
 	}
 	vaker.fake_data_wdf(&s, &df)
 	vaker.fake_data(&a)
