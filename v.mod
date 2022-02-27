@@ -1,7 +1,7 @@
 Module {
 	name: 'vaker'
-	description: ''
-	version: ''
-	license: ''
+	description: 'A light-weight data faker written in V Lang'
+	version: '0.0.1'
+	license: 'MIT'
 	dependencies: []
 }

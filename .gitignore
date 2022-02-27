@@ -5,4 +5,5 @@ main
 *.so
 *.dylib
 *.dll
+*.c
 vls.log

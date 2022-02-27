@@ -3,8 +3,8 @@ module main
 import vaker
 
 struct St {
+	Bs
 	a string
-	b Bs
 }
 
 struct Bs {
@@ -16,13 +16,7 @@ interface Fs {
 }
 
 fn main() {
-	mut s := [St{}, St{}]
-	a := ['', '']
-	df := vaker.DataFaker{
-		lb: &vaker.lb_jpn
-	}
-	vaker.fake_data_wdf(&s, &df)
-	vaker.fake_data(&a)
-	println(s)
+	a := []string{len:10}
+    vaker.fake_data(&a)
 	println(a)
 }
