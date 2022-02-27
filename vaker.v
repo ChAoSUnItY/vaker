@@ -16,7 +16,7 @@ interface Fs {
 }
 
 fn main() {
-	a := []string{len:10}
-    vaker.fake_data(&a)
+	a := []string{len: 10}
+	vaker.fake_data(&a)
 	println(a)
 }

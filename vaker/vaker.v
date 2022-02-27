@@ -37,6 +37,7 @@ pub fn fake_data<T>(t &T) {
 }
 
 // Faking data with custom options
+[inline]
 pub fn fake_data_wdf<T>(t &T, df &DataFaker) {
 	$if T is $Array {
 		unsafe {
@@ -78,7 +79,7 @@ fn fake_map_value<V>(df &DataFaker) ?V {
 	$if V is string {
 		return fake_string(df.str_len, df.lb)
 	} $else {
-		return error('Unsupported type ${V.name} to be faked in map value')
+		return error('Unsupported type $V.name to be faked in map value')
 	}
 }
 
