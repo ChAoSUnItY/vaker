@@ -56,7 +56,6 @@ const (
 			return u16(gen<u64>(df))
 		}
 		u32_invoker: fn (df &DataFaker) u32 {
-			i := gen<u64>(df)
 			return u32(gen<u64>(df))
 		}
 		u64_invoker: fn (df &DataFaker) u64 {
