@@ -1,6 +1,8 @@
 # vaker
 A light-weight data faker written in V Lang
 
+[![ Vaker-doc - Document](https://img.shields.io/badge/_Vaker--doc-Document-2ea44f?logo=V)](https://chaosunity.github.io/Vaker-doc/)
+
 ## Usage
 
 ```v
