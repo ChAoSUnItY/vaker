@@ -4,22 +4,22 @@ import rand
 
 struct PrimitiveInvokers {
 	string_invoker fn (df &DataFaker) string
-	rune_invoker fn (df &DataFaker) rune
-	bool_invoker fn (df &DataFaker) bool
-	i8_invoker fn (df &DataFaker) i8
-	i16_invoker fn (df &DataFaker) i16
-	int_invoker fn (df &DataFaker) int
-	i64_invoker fn (df &DataFaker) i64
-	byte_invoker fn (df &DataFaker) byte
-	u16_invoker fn (df &DataFaker) u16
-	u32_invoker fn (df &DataFaker) u32
-	u64_invoker fn (df &DataFaker) u64
-	f32_invoker fn (df &DataFaker) f32
-	f64_invoker fn (df &DataFaker) f64
+	rune_invoker   fn (df &DataFaker) rune
+	bool_invoker   fn (df &DataFaker) bool
+	i8_invoker     fn (df &DataFaker) i8
+	i16_invoker    fn (df &DataFaker) i16
+	int_invoker    fn (df &DataFaker) int
+	i64_invoker    fn (df &DataFaker) i64
+	byte_invoker   fn (df &DataFaker) byte
+	u16_invoker    fn (df &DataFaker) u16
+	u32_invoker    fn (df &DataFaker) u32
+	u64_invoker    fn (df &DataFaker) u64
+	f32_invoker    fn (df &DataFaker) f32
+	f64_invoker    fn (df &DataFaker) f64
 }
 
 const (
-	primitive_invokers = PrimitiveInvokers {
+	primitive_invokers = PrimitiveInvokers{
 		string_invoker: fn (df &DataFaker) string {
 			mut runes := []rune{cap: df.str_len}
 

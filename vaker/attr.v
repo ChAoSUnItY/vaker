@@ -7,7 +7,7 @@ type Attribute = map[string][]string
 const (
 	builtin_attrs = [
 		'str_len',
-		'skip'
+		'skip',
 	]
 )
 
@@ -15,19 +15,22 @@ const (
 struct Struct {
 }
 
-// get_attrs can effectively collect valid attributes by asserting type symbol T  
-// For example: attribute `str_len` would eprintln when type symbol T is not `string` 
+// get_attrs can effectively collect valid attributes by asserting type symbol T
+// For example: attribute `str_len` would eprintln when type symbol T is not `string`
 [inline]
 fn get_attrs<T>(_ T, fd &FieldData) Attribute {
 	attrs := fd.attrs.filter(it.starts_with('vaker')).map(it.trim_string_left('vaker:')).map(it.split_any(':='))
-	mut checked_attrs := map[string][]string{}{cap:1}
-
+	mut checked_attrs := map[string][]string{}
+	{
+		cap:
+		1
+	}
 	for attr in attrs {
 		attribute := attr[0] or {
 			eprintln('Expect a vaker attribute after `vaker:`')
 			continue
 		}
-		binary_search(builtin_attrs, attribute) or {
+		binary_search(vaker.builtin_attrs, attribute) or {
 			eprintln('Unexpected vaker attribute $attribute')
 			continue
 		}

@@ -47,7 +47,8 @@ pub fn fake_data_wdf<T>(t &T, df &DataFaker) {
 	if T.typ > 30 {
 		$for f in T.fields {
 			$if f.typ is string {
-			} // Dummy expression to generate and specify t.$(f.name)'s type
+			}
+			// Dummy expression to generate and specify t.$(f.name)'s type
 
 			mut attrs := get_attrs(t.$(f.name), f)
 
@@ -63,9 +64,11 @@ pub fn fake_data_wdf<T>(t &T, df &DataFaker) {
 [inline]
 fn fake_map<K, V>(m &map[K]V, df &DataFaker) {
 	$if K is string {
-	} // Dummy expression to generate and specify K type
+	}
+	// Dummy expression to generate and specify K type
 	$if V is string {
-	} // Dummy expression to generate and specify V type
+	}
+	// Dummy expression to generate and specify V type
 
 	fake_entry_count := rand.int_in_range(df.min_map_len, df.max_map_len) or { panic(err) }
 
