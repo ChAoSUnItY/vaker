@@ -25,11 +25,6 @@ struct LangaugeBoundary {
 	exclude []rune
 }
 
-pub struct DataFaker {
-	lb      &LangaugeBoundary = &vaker.lb_eng
-	str_len int = 10
-}
-
 // Faking data with default options
 [inline]
 pub fn fake_data<T>(t &T) {
@@ -47,51 +42,72 @@ pub fn fake_data_wdf<T>(t &T, df &DataFaker) {
 		}
 	} $else $if T is $Map {
 		fake_map(t, df)
-	} $else $if T.typ is string {
-		unsafe {
-			*t = fake_string(df.str_len, df.lb)
-		}
-	} $else {
+	}
+
+	if T.typ > 30 {
 		$for f in T.fields {
 			$if f.typ is string {
-			}
+			} // Dummy expression to generate and specify t.$(f.name)'s type
+
+			mut attrs := get_attrs(t.$(f.name), f)
 
 			fake_data_wdf(&(t.$(f.name)), df)
 		}
-	}
-}
-
-fn fake_map<K, V>(m &map[K]V, df &DataFaker) {
-	fake_entry_count := rand.intn(100) or { 50 }
-
-	for _ in 0 .. fake_entry_count {
-		value := fake_map_value<V>(df) or { panic(err) }
-
-		$if K is string {
-			unsafe {
-				(*m)[K(fake_string(df.str_len, df.lb))] = value
-			}
+	} else {
+		unsafe {
+			*t = fake_primitive_value<T>(df) or { panic(err) }
 		}
 	}
 }
 
-fn fake_map_value<V>(df &DataFaker) ?V {
+[inline]
+fn fake_map<K, V>(m &map[K]V, df &DataFaker) {
+	$if K is string {
+	} // Dummy expression to generate and specify K type
 	$if V is string {
-		return fake_string(df.str_len, df.lb)
-	} $else {
-		return error('Unsupported type $V.name to be faked in map value')
+	} // Dummy expression to generate and specify V type
+
+	fake_entry_count := rand.int_in_range(df.min_map_len, df.max_map_len) or { panic(err) }
+
+	for _ in 0 .. fake_entry_count {
+		key := fake_primitive_value<K>(df) or { panic(err) }
+		value := fake_primitive_value<V>(df) or { panic(err) }
+
+		unsafe {
+			(*m)[key] = value
+		}
 	}
 }
 
-fn fake_string(len int, b &LangaugeBoundary) string {
-	mut runes := []rune{cap: len}
-
-	for i, _ := 0, 0; i < len; {
-		rand_rune := rune(rand.intn(b.end - b.start) or { println(err) } + b.start)
-
-		runes << rand_rune
-		i++
+[inline]
+fn fake_primitive_value<T>(df &DataFaker) ?T {
+	$if T is string {
+		return df.primitive_invokers.string_invoker(df)
+	} $else $if T is rune {
+		return df.primitive_invokers.rune_invoker(df)
+	} $else $if T is bool {
+		return df.primitive_invokers.bool_invoker(df)
+	} $else $if T is i8 {
+		return df.primitive_invokers.i8_invoker(df)
+	} $else $if T is i16 {
+		return df.primitive_invokers.i16_invoker(df)
+	} $else $if T is int {
+		return df.primitive_invokers.int_invoker(df)
+	} $else $if T is i64 {
+		return df.primitive_invokers.i64_invoker(df)
+	} $else $if T is byte {
+		return df.primitive_invokers.byte_invoker(df)
+	} $else $if T is u16 {
+		return df.primitive_invokers.u16_invoker(df)
+	} $else $if T is u32 {
+		return df.primitive_invokers.u32_invoker(df)
+	} $else $if T is u64 {
+		return df.primitive_invokers.u64_invoker(df)
+	} $else $if T is f32 {
+		return df.primitive_invokers.f32_invoker(df)
+	} $else $if T is f64 {
+		return df.primitive_invokers.f64_invoker(df)
+	} $else {
+		return error('type $T.name is not an primitive type')
 	}
-
-	return runes.string()
 }

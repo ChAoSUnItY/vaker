@@ -4,7 +4,7 @@ import vaker
 
 struct St {
 	Bs
-	a string
+	a string ['vaker:str_len=10']
 }
 
 struct Bs {
@@ -16,7 +16,10 @@ interface Fs {
 }
 
 fn main() {
-	a := []string{len: 10}
+	a := map[int]string{}
+	st := St{}
 	vaker.fake_data(&a)
+	vaker.fake_data(&st)
 	println(a)
+	println(st)
 }
