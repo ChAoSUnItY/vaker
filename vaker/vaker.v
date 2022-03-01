@@ -42,9 +42,7 @@ pub fn fake_data_wdf<T>(t &T, df &DataFaker) {
 		}
 	} $else $if T is $Map {
 		fake_map(t, df)
-	}
-
-	if T.typ > 30 {
+	} $else $if T is $Struct {
 		$for f in T.fields {
 			$if f.typ is string {
 			}
@@ -56,7 +54,7 @@ pub fn fake_data_wdf<T>(t &T, df &DataFaker) {
 				fake_data_wdf(&(t.$(f.name)), df)
 			}
 		}
-	} else {
+	} $else {
 		unsafe {
 			*t = fake_primitive_value<T>(df) or { panic(err) }
 		}
