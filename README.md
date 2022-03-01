@@ -91,6 +91,10 @@ system  0.000
 total   0.002
 ```
 
+### Explaination
+
+Vaker generates faking functions at compile time, so it spend more memory/time on compilation, but this doesn't effect actual runtime performance.
+
 ## Limitations
 
 1. Vaker does not support faking interface, since interface in V cannot be implemented in runtime.
