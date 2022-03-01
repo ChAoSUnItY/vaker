@@ -9,7 +9,7 @@ struct St {
 
 struct Bs {
 	Fs
-	a string
+	a string ['vaker:skip']
 }
 
 struct Fs {
@@ -19,7 +19,7 @@ struct Fs {
 fn main() {
 	a := map[int]string{}
 	st := St{}
-	b := [5]int{}
+	b := []int{len: 6}
 	vaker.fake_data(&a)
 	vaker.fake_data(&st)
 	vaker.fake_data(&b)

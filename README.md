@@ -1,5 +1,5 @@
 # vaker
-A light-weight data faker written in V Lang
+A light-weight data faker written in V Lang.
 
 [![ Vaker-doc - Document](https://img.shields.io/badge/_Vaker--doc-Document-2ea44f?logo=V)](https://chaosunity.github.io/Vaker-doc/)
 
@@ -33,6 +33,63 @@ See [Limitations](#limitations)
 ## Spec
 
 Vaker uses compile time reflection to minimize runtime memory overhead as much as possible.
+
+### Bench
+
+```v
+import vaker
+
+struct St {
+	Bs
+	a string ['vaker:str_len=10']
+}
+
+struct Bs {
+	Fs
+	a string ['vaker:skip']
+}
+
+struct Fs {
+	a map[int]string
+}
+
+fn main() {
+	a := map[int]string{}
+	st := St{}
+	b := []int{len: 6}
+	vaker.fake_data(&a)
+	vaker.fake_data(&st)
+	vaker.fake_data(&b)
+}
+```
+
+```cmd
+> v run ./main.v
+
+================
+CPU     136%
+user    0.258
+system  0.038
+total   0.217
+```
+
+```cmd
+> v -prod ./main.v
+
+================
+CPU     101%
+user    4.062
+system  0.136
+total   4.121
+     
+> ./main
+
+================
+CPU     82%
+user    0.001
+system  0.000
+total   0.002
+```
 
 ## Limitations
 

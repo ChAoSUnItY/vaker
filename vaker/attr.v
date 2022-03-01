@@ -6,8 +6,8 @@ type Attribute = map[string][]string
 
 const (
 	builtin_attrs = [
-		'str_len',
 		'skip',
+		'str_len',
 	]
 )
 
@@ -62,4 +62,16 @@ fn get_attrs<T>(_ T, fd &FieldData) Attribute {
 	}
 
 	return Attribute(checked_attrs)
+}
+
+// Check whether field is tagged with 'vaker:skip'
+fn (attr &Attribute) skip() bool {
+	return 'skip' in attr
+}
+
+// Modify DataFaker's field to satisfy field's attribute
+fn (attr &Attribute) init<T>(_ &T) {
+}
+
+fn (attr &Attribute) @defer<T>(_ &T) {
 }

@@ -52,7 +52,9 @@ pub fn fake_data_wdf<T>(t &T, df &DataFaker) {
 
 			mut attrs := get_attrs(t.$(f.name), f)
 
-			fake_data_wdf(&(t.$(f.name)), df)
+			if !attrs.skip() {
+				fake_data_wdf(&(t.$(f.name)), df)
+			}
 		}
 	} else {
 		unsafe {
