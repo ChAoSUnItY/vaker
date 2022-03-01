@@ -19,10 +19,11 @@ struct Fs {
 fn main() {
 	a := map[int]string{}
 	st := St{}
-	b := []int{len: 6}
+	b := [5]int{}
 	vaker.fake_data(&a)
 	vaker.fake_data(&st)
 	vaker.fake_data(&b)
 	println(a)
 	println(st)
+	println(b)
 }
