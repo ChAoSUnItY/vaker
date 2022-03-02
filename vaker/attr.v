@@ -69,9 +69,19 @@ fn (attr &Attribute) skip() bool {
 	return 'skip' in attr
 }
 
-// Modify DataFaker's field to satisfy field's attribute
-fn (attr &Attribute) init<T>(_ &T) {
-}
+// Clone and modify DataFaker's field to satisfy field's attribute.
+// Returns a modified version of DataFaker, does not modify original one.
+fn mod<T>(_ &T, attr &Attribute, df &DataFaker) DataFaker {
+	mut cm_df := *df
 
-fn (attr &Attribute) @defer<T>(_ &T) {
+	match true {
+		'str_len' in attr {
+			cm_df.str_len = (*attr)['str_len'][0].int()
+		}
+		else {
+			// Unreachable
+		}
+	}
+
+	return cm_df
 }

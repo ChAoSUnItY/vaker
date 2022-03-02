@@ -51,7 +51,9 @@ pub fn fake_data_wdf<T>(t &T, df &DataFaker) {
 			mut attrs := get_attrs(t.$(f.name), f)
 
 			if !attrs.skip() {
-				fake_data_wdf(&(t.$(f.name)), df)
+				cm_df := mod(&(t.$(f.name)), attrs, df)
+
+				fake_data_wdf(&(t.$(f.name)), cm_df)
 			}
 		}
 	} $else {

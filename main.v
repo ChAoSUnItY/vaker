@@ -4,7 +4,8 @@ import vaker
 
 struct St {
 	Bs
-	a string ['vaker:str_len=10']
+	a string ['vaker:str_len=5']
+	b string
 }
 
 struct Bs {
@@ -19,11 +20,8 @@ struct Fs {
 fn main() {
 	a := map[int]string{}
 	st := St{}
-	b := [5]int{}
 	vaker.fake_data(&a)
 	vaker.fake_data(&st)
-	vaker.fake_data(&b)
 	println(a)
 	println(st)
-	println(b)
 }
