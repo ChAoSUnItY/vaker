@@ -6,6 +6,8 @@ type Attribute = map[string][]string
 
 const (
 	builtin_attrs = [
+		'lat',
+		'long',
 		'skip',
 		'str_len',
 	]
@@ -36,6 +38,11 @@ fn get_attrs<T>(_ T, fd &FieldData) Attribute {
 		}
 
 		match attribute {
+			'lat', 'long' {
+				$if T !is f32 && T !is f64 {
+					eprintln('Attribute `$attribute` could not apply on type $T.name')
+				}
+			}
 			'str_len' {
 				$if T is string {
 					if attr.len != 2 {
@@ -75,6 +82,9 @@ fn mod<T>(_ &T, attr &Attribute, df &DataFaker) DataFaker {
 	mut cm_df := *df
 
 	match true {
+		'lat' in attr {
+			cm_df.current_attribute_function = &(df.attribute_functions['lat'])
+		}
 		'str_len' in attr {
 			cm_df.str_len = (*attr)['str_len'][0].int()
 		}

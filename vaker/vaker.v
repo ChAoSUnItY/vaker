@@ -57,6 +57,12 @@ pub fn fake_data_wdf<T>(t &T, df &DataFaker) {
 			}
 		}
 	} $else {
+		if !isnil(df.current_attribute_function) {
+			func := *df.current_attribute_function
+			func(t)
+			return
+		}
+
 		unsafe {
 			*t = fake_primitive_value<T>(df) or { panic(err) }
 		}
