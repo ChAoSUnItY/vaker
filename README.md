@@ -21,7 +21,7 @@ Vaker supports:
 `int`, `i64`, `byte`, `u16`, `u32`, `u64`, `f32`, `f64`, `struct`
 
 **while:**
-***every type symbols: T, K, V, isn't interface or sized array***
+***every type symbols: T, K, V, isn't interface or sized array (Unstable for now)***
 
 Additionally, Vaker supports embedded structure, or nested struct data faking.
 
@@ -98,7 +98,7 @@ Vaker generates faking functions at compile time, so it spend more memory/time o
 ## Limitations
 
 1. Vaker does not support faking interface, since interface in V cannot be implemented in runtime.
-2. Vaker does not support faking sized array, since V's compile-time reflection cannot assume whether array is sized or not, which leads not unknown size of array 
+2. Vaker does not support faking sized array, since V's compile-time reflection cannot assume whether array is sized or not, which leads not unknown size of array <br/> <b> Update: It's confirmed that this limitation is not really a **limitation** but a  *V Lang compiler bug*, I will keep tracking this until the bug is fixed, see vlang/v#13632 </b>
 
 ## Contribution
 
