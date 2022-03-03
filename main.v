@@ -12,7 +12,7 @@ struct St {
 
 struct Bs {
 	Fs
-	a string ['vaker:skip']
+	a string ['vaker:uuid_digit'; 'vaker:skip']
 }
 
 struct Fs {

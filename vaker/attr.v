@@ -69,7 +69,7 @@ fn get_attrs<T>(_ T, fd &FieldData) (Attribute, []IError) {
 						continue
 					}
 				} $else {
-					errors << error('Attribute `str_len` could not apply on type $T.name')
+					errors << wrong_type('str_len', T.name)
 					continue
 				}
 			}
@@ -77,6 +77,9 @@ fn get_attrs<T>(_ T, fd &FieldData) (Attribute, []IError) {
 				if attr.len != 1 {
 					errors << error('Unexpected arguments ${attribute[1..]}')
 					continue
+				} else if checked_attrs.len != 0 {
+					// Redundant attributes: Having `skip` attribute while more than one attributes exist at same field
+					errors << error('Redundant attributes, remove other attributes')
 				}
 			}
 			else {
