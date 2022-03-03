@@ -100,17 +100,18 @@ fn (attr &Attribute) skip() bool {
 fn mod<T>(_ &T, attr &Attribute, df &DataFaker) DataFaker {
 	mut cm_df := *df
 
+	mut keys := df.attribute_functions.keys()
+	keys.sort()
+
 	match true {
-		'lat' in attr {
-			cm_df.current_attribute_function = &(df.attribute_functions['lat'])
-		}
-		'long' in attr {
-			cm_df.current_attribute_function = &(df.attribute_functions['long'])
-		}
 		'str_len' in attr {
 			cm_df.str_len = (*attr)['str_len'][0].int()
 		}
 		else {
+			for a in attr.keys() {
+				func := binary_search(keys, a) or { panic(err) }
+				cm_df.current_attribute_function = &(df.attribute_functions[keys[func]])
+			} 
 		}
 	}
 

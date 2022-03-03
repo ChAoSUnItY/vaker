@@ -66,7 +66,7 @@ pub fn fake_data_wdf<T>(t &T, df &DataFaker) {
 	} $else {
 		if !isnil(df.current_attribute_function) {
 			func := *df.current_attribute_function
-			func(t)
+			func(ptr: t, sz: sizeof(*t))
 			return
 		}
 

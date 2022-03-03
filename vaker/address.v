@@ -3,19 +3,41 @@ module vaker
 import rand
 
 [inline]
-fn latitude(ptr voidptr) {
+fn latitude(ptr PtrInfo) {
 	latitude := (rand.f32() * 360) - 90
-	pointer := &f32(ptr)
-	unsafe {
-		*pointer = latitude
+	match ptr.sz {
+		4 {
+			pointer := &f32(ptr.ptr)
+			unsafe {
+				*pointer = latitude
+			}
+		}
+		8 {
+			pointer := &f64(ptr.ptr)
+			unsafe {
+				*pointer = latitude
+			}
+		}
+		else {}
 	}
 }
 
 [inline]
-fn longitude(ptr voidptr) {
+fn longitude(ptr PtrInfo) {
 	longitude := (rand.f32() * 360) - 180
-	pointer := &f32(ptr)
-	unsafe {
-		*pointer = longitude
+	match ptr.sz {
+		4 {
+			pointer := &f32(ptr.ptr)
+			unsafe {
+				*pointer = longitude
+			}
+		}
+		8 {
+			pointer := &f64(ptr.ptr)
+			unsafe {
+				*pointer = longitude
+			}
+		}
+		else {}
 	}
 }

@@ -1,5 +1,11 @@
 module vaker
 
+[params]
+struct PtrInfo {
+	ptr voidptr
+	sz usize
+}
+
 pub struct DataFaker {
 mut:
 	lb                  &LangaugeBoundary = &lb_eng
@@ -15,11 +21,11 @@ mut:
 	rand_max_fsz        f64 = 100
 	rand_min_fsz        f64
 	primitive_invokers  PrimitiveInvokers       = primitive_invokers
-	attribute_functions map[string]fn (voidptr) = {
+	attribute_functions map[string]fn (PtrInfo) = {
 		'lat':             latitude
 		'long':            longitude
 		'uuid_digit':      digit
 		'uuid_hyphenated': hyphenated
 	}
-	current_attribute_function &fn (voidptr) = voidptr(0)
+	current_attribute_function &fn (PtrInfo) = voidptr(0)
 }
