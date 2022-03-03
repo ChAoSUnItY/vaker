@@ -48,7 +48,14 @@ pub fn fake_data_wdf<T>(t &T, df &DataFaker) {
 			}
 			// Dummy expression to generate and specify t.$(f.name)'s type
 
-			mut attrs := get_attrs(t.$(f.name), f)
+			mut attrs, errors := get_attrs(t.$(f.name), f)
+
+			if errors.len > 0 {
+				for e in errors {
+					eprintln(e.str())
+				}
+				return
+			}
 
 			if !attrs.skip() {
 				cm_df := mod(&(t.$(f.name)), attrs, df)

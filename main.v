@@ -5,7 +5,7 @@ import math
 
 struct St {
 	Bs
-	a    string ['vaker:str_len=5']
+	a    string ['vaker:uuid_digit']
 	lat  f32    ['vaker:lat']
 	long f64    ['vaker:long']
 }

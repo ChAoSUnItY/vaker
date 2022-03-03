@@ -16,8 +16,10 @@ mut:
 	rand_min_fsz        f64
 	primitive_invokers  PrimitiveInvokers       = primitive_invokers
 	attribute_functions map[string]fn (voidptr) = {
-		'lat':  latitude
-		'long': longitude
+		'lat':             latitude
+		'long':            longitude
+		'uuid_digit':      digit
+		'uuid_hyphenated': hyphenated
 	}
 	current_attribute_function &fn (voidptr) = voidptr(0)
 }
