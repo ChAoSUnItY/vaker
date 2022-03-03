@@ -8,6 +8,7 @@ const (
 	builtin_attrs = [
 		'lat',
 		'long',
+		'phone_number',
 		'skip',
 		'str_len',
 		'uuid_digit',
@@ -47,11 +48,13 @@ fn get_attrs<T>(_ T, fd &FieldData) (Attribute, []IError) {
 			'lat', 'long' {
 				$if T !is f32 && T !is f64 {
 					errors << wrong_type(attribute, T.name)
+					continue
 				}
 			}
-			'uuid_digit', 'uuid_hyphenated' {
+			'phone_number', 'uuid_digit', 'uuid_hyphenated' {
 				$if T !is string {
 					errors << wrong_type(attribute, T.name)
+					continue
 				}
 			}
 			'str_len' {
@@ -72,6 +75,7 @@ fn get_attrs<T>(_ T, fd &FieldData) (Attribute, []IError) {
 				} else if checked_attrs.len != 0 {
 					// Redundant attributes: Having `skip` attribute while more than one attributes exist at same field
 					errors << error('Redundant attributes, remove other attributes')
+					continue
 				}
 			}
 			else {
@@ -106,7 +110,7 @@ fn mod<T>(_ &T, attr &Attribute, df &DataFaker) DataFaker {
 			for a in attr.keys() {
 				func := binary_search(keys, a) or { panic(err) }
 				cm_df.current_attribute_function = &(df.attribute_functions[keys[func]])
-			} 
+			}
 		}
 	}
 

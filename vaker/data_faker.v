@@ -3,7 +3,7 @@ module vaker
 [params]
 struct PtrInfo {
 	ptr voidptr
-	sz usize
+	sz  usize
 }
 
 pub struct DataFaker {
@@ -24,6 +24,7 @@ mut:
 	attribute_functions map[string]fn (PtrInfo) = {
 		'lat':             latitude
 		'long':            longitude
+		'phone_number':    phone_number
 		'uuid_digit':      digit
 		'uuid_hyphenated': hyphenated
 	}

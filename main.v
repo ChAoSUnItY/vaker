@@ -10,8 +10,7 @@ struct St {
 }
 
 struct Bs {
-	Fs
-	a string ['vaker:skip']
+	a string ['vaker:phone_number']
 }
 
 fn main() {
