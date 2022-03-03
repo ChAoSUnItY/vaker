@@ -13,14 +13,6 @@ const (
 		'uuid_digit',
 		'uuid_hyphenated',
 	]
-
-	builtin_funcs = [
-		'lat',
-		'long',
-		'skip',
-		'uuid_digit',
-		'uuid_hyphenated',
-	]
 )
 
 // Dummy struct for get_attrs
