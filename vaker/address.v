@@ -3,7 +3,7 @@ module vaker
 import rand
 
 [inline]
-fn latitude(ptr PtrInfo) {
+pub fn latitude(ptr PtrInfo) {
 	latitude := (rand.f32() * 360) - 90
 	match ptr.sz {
 		4 {
@@ -23,7 +23,7 @@ fn latitude(ptr PtrInfo) {
 }
 
 [inline]
-fn longitude(ptr PtrInfo) {
+pub fn longitude(ptr PtrInfo) {
 	longitude := (rand.f32() * 360) - 180
 	match ptr.sz {
 		4 {

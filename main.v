@@ -1,7 +1,6 @@
 module main
 
 import vaker
-import math
 
 struct St {
 	Bs
@@ -12,20 +11,11 @@ struct St {
 
 struct Bs {
 	Fs
-	a string ['vaker:uuid_digit'; 'vaker:skip']
-}
-
-struct Fs {
-	a map[int]string
+	a string ['vaker:skip']
 }
 
 fn main() {
-	a := map[int]string{}
-	st := St{
-		long: math.max_f64
-	}
-	vaker.fake_data(&a)
+	st := St{}
 	vaker.fake_data(&st)
-	println(a)
 	println(st)
 }
