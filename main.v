@@ -4,7 +4,7 @@ import vaker
 
 struct St {
 	Bs
-	a    string ['vaker:currency']
+	a    string ['vaker:amount_with_currency']
 	lat  f32    ['vaker:lat']
 	long f64    ['vaker:long']
 }

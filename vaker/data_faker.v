@@ -23,6 +23,7 @@ mut:
 	primitive_invokers  PrimitiveInvokers       = primitive_invokers
 	attribute_functions map[string]fn (PtrInfo) = {
 		'amount':                 amount
+		'amount_with_currency':   amount_with_currency
 		'currency':               currency
 		'e164_phone_number':      e164_phone_number
 		'lat':                    latitude

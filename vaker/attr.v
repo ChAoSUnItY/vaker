@@ -7,6 +7,7 @@ type Attribute = map[string][]string
 const (
 	builtin_attrs = [
 		'amount',
+		'amount_with_currency',
 		'currency',
 		'e164_phone_number',
 		'lat',
@@ -55,7 +56,8 @@ fn get_attrs<T>(_ T, fd &FieldData) (Attribute, []IError) {
 					continue
 				}
 			}
-			'phone_number', 'toll_free_phone_number', 'uuid_digit', 'uuid_hyphenated' {
+			'amount_with_currency', 'phone_number', 'toll_free_phone_number', 'uuid_digit',
+			'uuid_hyphenated' {
 				$if T !is string {
 					errors << wrong_type(attribute, T.name)
 					continue

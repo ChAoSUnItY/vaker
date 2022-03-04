@@ -47,6 +47,16 @@ pub fn amount(ptr PtrInfo) {
 }
 
 [inline]
+pub fn amount_with_currency(ptr PtrInfo) {
+	amount := precision(rand.f64() * pow10(intn(9) or { 1 }), intn(3) or { 1 } + 1)
+	currecy := vaker.currencies[intn(vaker.currencies.len) or { 0 }]
+	pointer := &string(ptr.ptr)
+	unsafe {
+		*pointer = '$amount $currecy'
+	}
+}
+
+[inline]
 fn precision(f f64, pre int) f64 {
 	div := pow10(pre)
 	return f64(i64(f * div)) / div
