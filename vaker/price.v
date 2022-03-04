@@ -1,6 +1,7 @@
 module vaker
 
-import rand
+import rand { intn }
+import math { pow10 }
 
 const currencies = ['AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN', 'BAM',
 	'BBD', 'BDT', 'BGN', 'BHD', 'BIF', 'BMD', 'BND', 'BOB', 'BOV', 'BRL', 'BSD', 'BTN', 'BWP',
@@ -19,5 +20,22 @@ const currencies = ['AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG
 
 [inline]
 pub fn currency(ptr PtrInfo) {
-	return currencies[rand.intn(currencies.len) or { 0 }]
+	pointer := &string(ptr.ptr)
+	unsafe {
+		*pointer = vaker.currencies[intn(vaker.currencies.len) or { 0 }]
+	}
+}
+
+[inline]
+pub fn amount(ptr PtrInfo) {
+	pointer := &f64(ptr.ptr)
+	unsafe {
+		*pointer = precision(math.f64() * pow10(intn(9)), intn(3) + 1)
+	}
+}
+
+[inline]
+fn precision(f f64, pre int) f64 {
+	div := pow10(pre)
+	return f64(i64(f * div)) / div
 }
