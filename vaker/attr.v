@@ -6,6 +6,8 @@ type Attribute = map[string][]string
 
 const (
 	builtin_attrs = [
+		'amount',
+		'currency',
 		'e164_phone_number',
 		'lat',
 		'long',
@@ -47,7 +49,7 @@ fn get_attrs<T>(_ T, fd &FieldData) (Attribute, []IError) {
 		}
 
 		match attribute {
-			'lat', 'long' {
+			'amount', 'currecy', 'lat', 'long' {
 				$if T !is f32 && T !is f64 {
 					errors << wrong_type(attribute, T.name)
 					continue

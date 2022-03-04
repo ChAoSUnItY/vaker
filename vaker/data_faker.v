@@ -22,6 +22,8 @@ mut:
 	rand_min_fsz        f64
 	primitive_invokers  PrimitiveInvokers       = primitive_invokers
 	attribute_functions map[string]fn (PtrInfo) = {
+		'amount':                 amount
+		'currency':               currency
 		'e164_phone_number':      e164_phone_number
 		'lat':                    latitude
 		'long':                   longitude

@@ -28,9 +28,21 @@ pub fn currency(ptr PtrInfo) {
 
 [inline]
 pub fn amount(ptr PtrInfo) {
-	pointer := &f64(ptr.ptr)
-	unsafe {
-		*pointer = precision(math.f64() * pow10(intn(9)), intn(3) + 1)
+	amount := precision(rand.f64() * pow10(intn(9) or { 1 }), intn(3) or { 1 } + 1)
+	match ptr.sz {
+		4 {
+			pointer := &f32(ptr.ptr)
+			unsafe {
+				*pointer = f32(amount)
+			}
+		}
+		8 {
+			pointer := &f64(ptr.ptr)
+			unsafe {
+				*pointer = amount
+			}
+		}
+		else {}
 	}
 }
 
