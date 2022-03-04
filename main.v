@@ -4,7 +4,7 @@ import vaker
 
 struct St {
 	Bs
-	a    string ['vaker:toll_free_phone_number']
+	a    string ['vaker:e164_phone_number']
 	lat  f32    ['vaker:lat']
 	long f64    ['vaker:long']
 }

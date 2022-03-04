@@ -6,6 +6,7 @@ type Attribute = map[string][]string
 
 const (
 	builtin_attrs = [
+		'e164_phone_number',
 		'lat',
 		'long',
 		'phone_number',
