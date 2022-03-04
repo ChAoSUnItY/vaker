@@ -11,6 +11,7 @@ const (
 		'phone_number',
 		'skip',
 		'str_len',
+		'toll_free_phone_number',
 		'uuid_digit',
 		'uuid_hyphenated',
 	]
@@ -51,7 +52,7 @@ fn get_attrs<T>(_ T, fd &FieldData) (Attribute, []IError) {
 					continue
 				}
 			}
-			'phone_number', 'uuid_digit', 'uuid_hyphenated' {
+			'phone_number', 'toll_free_phone_number', 'uuid_digit', 'uuid_hyphenated' {
 				$if T !is string {
 					errors << wrong_type(attribute, T.name)
 					continue

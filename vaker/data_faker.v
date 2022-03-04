@@ -22,11 +22,12 @@ mut:
 	rand_min_fsz        f64
 	primitive_invokers  PrimitiveInvokers       = primitive_invokers
 	attribute_functions map[string]fn (PtrInfo) = {
-		'lat':             latitude
-		'long':            longitude
-		'phone_number':    phone_number
-		'uuid_digit':      digit
-		'uuid_hyphenated': hyphenated
+		'lat':                    latitude
+		'long':                   longitude
+		'phone_number':           phone_number
+		'toll_free_phone_number': toll_free_phone_number
+		'uuid_digit':             digit
+		'uuid_hyphenated':        hyphenated
 	}
 	current_attribute_function &fn (PtrInfo) = voidptr(0)
 }
