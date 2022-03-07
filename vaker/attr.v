@@ -1,23 +1,27 @@
 module vaker
 
 import arrays { binary_search }
+import time
 
 type Attribute = map[string][]string
 
 const (
-	builtin_attrs = build_attrs()
-)
-
-fn build_attrs() []string {
-	attr_funcs := default_df.attribute_functions.keys()
-	builtin_attrs := [
-		'str_len',
+	builtin_attrs = [
+		'amount',
+		'amount_with_currency',
+		'currency',
+		'e164_phone_number',
+		'lat',
+		'long',
+		'phone_number',
 		'skip',
+		'str_len',
+		'toll_free_phone_number',
+		'unix_time',
+		'uuid_digit',
+		'uuid_hyphenated',
 	]
-	attrs := arrays.concat(attr_funcs, builtin_attrs)
-	attrs.sort()
-	return attrs
-}
+)
 
 // Dummy struct for get_attrs
 struct Struct {
@@ -68,7 +72,7 @@ fn get_attrs<T>(_ T, fd &FieldData) (Attribute, []IError) {
 						continue
 					}
 				} $else {
-					errors << wrong_type('str_len', T.name)
+					errors << wrong_type(attribute, T.name)
 					continue
 				}
 			}
@@ -80,6 +84,11 @@ fn get_attrs<T>(_ T, fd &FieldData) (Attribute, []IError) {
 					// Redundant attributes: Having `skip` attribute while more than one attributes exist at same field
 					errors << error('Redundant attributes, remove other attributes')
 					continue
+				}
+			}
+			'unix_time' {
+				$if T !is i64 && T !is time.Time {
+					errors << wrong_type(attribute, T.name)
 				}
 			}
 			else {

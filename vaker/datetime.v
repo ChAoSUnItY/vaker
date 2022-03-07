@@ -3,10 +3,9 @@ module vaker
 import rand
 import math
 import time
-import strconv
 
 const (
-	century   = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII',
+	centuries = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII',
 		'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI']
 	timezones = ['Australia/Adelaide', 'Australia/Broken_Hill', 'Australia/South',
 		'Australia/Yancowinna', 'Australia/Darwin', 'Australia/North', 'America/Eirunepe',
@@ -138,7 +137,7 @@ const (
 )
 
 [inline]
-fn unix() time.Time {
+fn unix_t() time.Time {
 	return time.unix(math.abs(rand.i64()))
 }
 
@@ -151,10 +150,10 @@ pub fn unix_time(ptr PtrInfo) {
 				*pointer = math.abs(rand.i64())
 			}
 		}
-		40 {
+		sizeof(time.Time) {
 			pointer := &time.Time(ptr.ptr)
 			unsafe {
-				*pointer = unix()
+				*pointer = unix_t()
 			}
 		}
 		else {}
@@ -163,7 +162,7 @@ pub fn unix_time(ptr PtrInfo) {
 
 [inline]
 pub fn date(ptr PtrInfo) {
-	unix := unix()
+	unix := unix_t()
 	pointer := &string(ptr.ptr)
 	unsafe {
 		*pointer = unix.get_fmt_date_str(.hyphen, .yyyymmdd)
@@ -172,7 +171,7 @@ pub fn date(ptr PtrInfo) {
 
 [inline]
 pub fn time(ptr PtrInfo) {
-	unix := unix()
+	unix := unix_t()
 	pointer := &string(ptr.ptr)
 	unsafe {
 		*pointer = unix.get_fmt_time_str(.hhmmss24)
@@ -181,7 +180,7 @@ pub fn time(ptr PtrInfo) {
 
 [inline]
 pub fn month(ptr PtrInfo) {
-	unix := unix()
+	unix := unix_t()
 	pointer := &string(ptr.ptr)
 	unsafe {
 		*pointer = unix.smonth()
@@ -190,7 +189,7 @@ pub fn month(ptr PtrInfo) {
 
 [inline]
 pub fn year(ptr PtrInfo) {
-	unix := unix()
+	unix := unix_t()
 	pointer := &string(ptr.ptr)
 	unsafe {
 		*pointer = unix.ymmdd().split('-')[0]
@@ -199,7 +198,7 @@ pub fn year(ptr PtrInfo) {
 
 [inline]
 pub fn day_of_week(ptr PtrInfo) {
-	unix := unix()
+	unix := unix_t()
 	pointer := &string(ptr.ptr)
 	unsafe {
 		*pointer = unix.long_weekday_str()
@@ -208,7 +207,7 @@ pub fn day_of_week(ptr PtrInfo) {
 
 [inline]
 pub fn timestamp(ptr PtrInfo) {
-	unix := unix()
+	unix := unix_t()
 	pointer := &string(ptr.ptr)
 	unsafe {
 		*pointer = unix.format_ss()
@@ -219,7 +218,7 @@ pub fn timestamp(ptr PtrInfo) {
 pub fn century(ptr PtrInfo) {
 	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = vaker.century[rand.intn(vaker.century.len) or { 0 }]
+		*pointer = vaker.centuries[rand.intn(vaker.centuries.len) or { 0 }]
 	}
 }
 

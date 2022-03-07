@@ -1,6 +1,7 @@
 module vaker
 
 import rand
+import time
 
 const (
 	default_df           = DataFaker{}
@@ -42,6 +43,8 @@ pub fn fake_data_wdf<T>(t &T, df &DataFaker) {
 		}
 	} $else $if T is $Map {
 		fake_map(t, df)
+	} $else $if T is time.Time {
+		unix_time(ptr: t, sz: sizeof(T))
 	} $else $if T is $Struct {
 		$for f in T.fields {
 			$if f.typ is string {
