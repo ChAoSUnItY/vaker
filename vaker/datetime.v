@@ -167,3 +167,12 @@ pub fn time(ptr PtrInfo) {
 		*pointer = unix.get_fmt_time_str(.hhmmss24)
 	}
 }
+
+[inline]
+pub fn month(ptr PtrInfo) {
+	unix := time.unix(math.abs(rand.i64()))
+	pointer := &string(ptr.ptr)
+	unsafe {
+		*pointer = unix.smonth()
+	}
+}
