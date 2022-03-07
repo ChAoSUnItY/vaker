@@ -176,3 +176,12 @@ pub fn month(ptr PtrInfo) {
 		*pointer = unix.smonth()
 	}
 }
+
+[inline]
+pub fn year(ptr PtrInfo) {
+	unix := time.unix(math.abs(rand.i64()))
+	pointer := &string(ptr.ptr)
+	unsafe {
+		*pointer = unix.ymmdd().split('-')[0]
+	}
+}
