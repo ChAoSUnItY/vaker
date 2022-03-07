@@ -209,3 +209,11 @@ pub fn timestamp(ptr PtrInfo) {
 		*pointer = unix.format_ss()
 	}
 }
+
+[inline]
+pub fn century(ptr PtrInfo) {
+	pointer := &string(ptr.ptr)
+	unsafe {
+		*pointer = vaker.century[rand.intn(vaker.century.len)]
+	}
+}
