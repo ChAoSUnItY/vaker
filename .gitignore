@@ -6,4 +6,6 @@ main
 *.dylib
 *.dll
 *.c
+*.swp
+*.swo
 vls.log

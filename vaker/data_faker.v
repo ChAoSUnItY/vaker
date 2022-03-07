@@ -24,14 +24,23 @@ mut:
 	attribute_functions map[string]fn (PtrInfo) = {
 		'amount':                 amount
 		'amount_with_currency':   amount_with_currency
+		'century':                century
 		'currency':               currency
+		'date':                   date
+		'day_of_week':            day_of_week
 		'e164_phone_number':      e164_phone_number
 		'lat':                    latitude
+		'timestamp':              timestamp
 		'long':                   longitude
+		'month':                  month
+		'period':                 period
 		'phone_number':           phone_number
+		'timezone':               timezone
 		'toll_free_phone_number': toll_free_phone_number
+		'unix_time':              unix_time
 		'uuid_digit':             digit
 		'uuid_hyphenated':        hyphenated
+		'year':                   year
 	}
 	current_attribute_function &fn (PtrInfo) = voidptr(0)
 }

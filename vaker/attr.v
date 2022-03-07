@@ -5,21 +5,19 @@ import arrays { binary_search }
 type Attribute = map[string][]string
 
 const (
-	builtin_attrs = [
-		'amount',
-		'amount_with_currency',
-		'currency',
-		'e164_phone_number',
-		'lat',
-		'long',
-		'phone_number',
-		'skip',
-		'str_len',
-		'toll_free_phone_number',
-		'uuid_digit',
-		'uuid_hyphenated',
-	]
+	builtin_attrs = build_attrs()
 )
+
+fn build_attrs() []string {
+	attr_funcs := default_df.attribute_functions.keys()
+	builtin_attrs := [
+		'str_len',
+		'skip',
+	]
+	attrs := arrays.concat(attr_funcs, builtin_attrs)
+	attrs.sort()
+	return attrs
+}
 
 // Dummy struct for get_attrs
 struct Struct {
