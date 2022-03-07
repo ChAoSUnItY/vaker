@@ -144,9 +144,20 @@ fn unix() time.Time {
 
 [inline]
 pub fn unix_time(ptr PtrInfo) {
-	pointer := &i64(ptr.ptr)
-	unsafe {
-		*pointer = math.abs(rand.i64())
+	match ptr.sz {
+		8 {
+			pointer := &i64(ptr.ptr)
+			unsafe {
+				*pointer = math.abs(rand.i64())
+			}
+		}
+		40 {
+			pointer := &time.Time(ptr.ptr)
+			unsafe {
+				*pointer = unix()
+			}
+		}
+		else {}
 	}
 }
 
