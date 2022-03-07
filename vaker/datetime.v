@@ -143,6 +143,11 @@ const (
 )
 
 [inline]
+fn unix() time.Time {
+	return time.unix(math.abs(rand.i64()))
+}
+
+[inline]
 pub fn unix_time(ptr PtrInfo) {
 	pointer := &i64(ptr.ptr)
 	unsafe {
@@ -152,7 +157,7 @@ pub fn unix_time(ptr PtrInfo) {
 
 [inline]
 pub fn date(ptr PtrInfo) {
-	unix := time.unix(math.abs(rand.i64()))
+	unix := unix()
 	pointer := &string(ptr.ptr)
 	unsafe {
 		*pointer = unix.get_fmt_date_str(.hyphen, .yyyymmdd)
@@ -161,7 +166,7 @@ pub fn date(ptr PtrInfo) {
 
 [inline]
 pub fn time(ptr PtrInfo) {
-	unix := time.unix(math.abs(rand.i64()))
+	unix := unix()
 	pointer := &string(ptr.ptr)
 	unsafe {
 		*pointer = unix.get_fmt_time_str(.hhmmss24)
@@ -170,7 +175,7 @@ pub fn time(ptr PtrInfo) {
 
 [inline]
 pub fn month(ptr PtrInfo) {
-	unix := time.unix(math.abs(rand.i64()))
+	unix := unix()
 	pointer := &string(ptr.ptr)
 	unsafe {
 		*pointer = unix.smonth()
@@ -179,7 +184,7 @@ pub fn month(ptr PtrInfo) {
 
 [inline]
 pub fn year(ptr PtrInfo) {
-	unix := time.unix(math.abs(rand.i64()))
+	unix := unix()
 	pointer := &string(ptr.ptr)
 	unsafe {
 		*pointer = unix.ymmdd().split('-')[0]
