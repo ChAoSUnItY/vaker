@@ -155,6 +155,15 @@ pub fn date(ptr PtrInfo) {
 	unix := time.unix(math.abs(rand.i64()))
 	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = unix.get_fmt_date_string(.hyphen, .yyyymmdd)
+		*pointer = unix.get_fmt_date_str(.hyphen, .yyyymmdd)
+	}
+}
+
+[inline]
+pub fn time(ptr PtrInfo) {
+	unix := time.unix(math.abs(rand.i64()))
+	pointer := &string(ptr.ptr)
+	unsafe {
+		*pointer = unix.get_fmt_time_str(.hhmmss24)
 	}
 }
