@@ -3,6 +3,7 @@ module vaker
 import rand
 import math
 import time
+import strconv
 
 const (
 	century   = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII',
@@ -188,5 +189,23 @@ pub fn year(ptr PtrInfo) {
 	pointer := &string(ptr.ptr)
 	unsafe {
 		*pointer = unix.ymmdd().split('-')[0]
+	}
+}
+
+[inline]
+pub fn day_of_week(ptr PtrInfo) {
+	unix := unix()
+	pointer := &string(ptr.ptr)
+	unsafe {
+		*pointer = unix.long_weekday_str()
+	}
+}
+
+[inline]
+pub fn timestamp(ptr PtrInfo) {
+	unix := unix()
+	pointer := &string(ptr.ptr)
+	unsafe {
+		*pointer = unix.format_ss()
 	}
 }
