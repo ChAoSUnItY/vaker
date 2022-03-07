@@ -18,7 +18,7 @@ fn main() {
 
 Vaker supports:  
 `[]T`, `map[K]V`, `string`, `rune`, `bool`, `i8`, `i16`,  
-`int`, `i64`, `byte`, `u16`, `u32`, `u64`, `f32`, `f64`, `struct`
+`int`, `i64`, `byte`, `u16`, `u32`, `u64`, `f32`, `f64`, `struct`, `time.Time`
 
 **while:**
 ***every type symbols: T, K, V, isn't interface or sized array (Unstable for now)***
@@ -29,6 +29,10 @@ Vaker does not support faking:
 `interface`, `T[]! (Sized array)`
 
 See [Limitations](#limitations)
+
+## Supported Attributes
+
+TODO
 
 ## Spec
 
