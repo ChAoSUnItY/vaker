@@ -217,3 +217,11 @@ pub fn century(ptr PtrInfo) {
 		*pointer = vaker.century[rand.intn(vaker.century.len)]
 	}
 }
+
+[inline]
+pub fn timezone(ptr PtrInfo) {
+	pointer := &string(ptr.ptr)
+	unsafe {
+		*pointer = vaker.timezones[rand.intn(vaker.timezones.len)]
+	}
+}
