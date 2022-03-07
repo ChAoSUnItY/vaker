@@ -134,13 +134,7 @@ const (
 )
 
 const (
-	base_date_format        = '2006-01-02'
-	time_format             = '15:04:05'
-	month_format            = 'January'
-	year_format             = '2006'
-	day_format              = 'Monday'
-	day_of_monthonth_format = '_2'
-	time_period_format      = 'PM'
+	periods = ['AM', 'PM']
 )
 
 [inline]
@@ -214,7 +208,7 @@ pub fn timestamp(ptr PtrInfo) {
 pub fn century(ptr PtrInfo) {
 	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = vaker.century[rand.intn(vaker.century.len)]
+		*pointer = vaker.century[rand.intn(vaker.century.len) or { 0 }]
 	}
 }
 
@@ -222,6 +216,14 @@ pub fn century(ptr PtrInfo) {
 pub fn timezone(ptr PtrInfo) {
 	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = vaker.timezones[rand.intn(vaker.timezones.len)]
+		*pointer = vaker.timezones[rand.intn(vaker.timezones.len) or { 0 }]
+	}
+}
+
+[inline]
+pub fn period(ptr PtrInfo) {
+	pointer := &string(ptr.ptr)
+	unsafe {
+		*pointer = vaker.periods[rand.intn(vaker.periods.len) or { 0 }]
 	}
 }
