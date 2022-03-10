@@ -24,6 +24,8 @@ mut:
 	attribute_functions map[string]fn (PtrInfo) = {
 		'amount':                 amount
 		'amount_with_currency':   amount_with_currency
+		'cc_number':              cc_number
+		'cc_type':                cc_type
 		'century':                century
 		'currency':               currency
 		'date':                   date

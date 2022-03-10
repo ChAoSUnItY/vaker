@@ -9,6 +9,8 @@ const (
 	builtin_attrs = [
 		'amount',
 		'amount_with_currency',
+		'cc_number',
+		'cc_type',
 		'century',
 		'currency',
 		'date',
@@ -66,9 +68,9 @@ fn get_attrs<T>(_ T, fd &FieldData) (Attribute, []IError) {
 					continue
 				}
 			}
-			'amount_with_currency', 'century', 'date', 'day_of_week', 'month', 'period',
-			'timestamp', 'timezone', 'phone_number', 'toll_free_phone_number', 'uuid_digit',
-			'uuid_hyphenated', 'year' {
+			'amount_with_currency', 'cc_number', 'cc_type', 'century', 'date', 'day_of_week',
+			'month', 'period', 'timestamp', 'timezone', 'phone_number', 'toll_free_phone_number',
+			'uuid_digit', 'uuid_hyphenated', 'year' {
 				$if T !is string {
 					errors << wrong_type(attribute, T.name)
 					continue

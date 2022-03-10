@@ -12,7 +12,7 @@ struct St {
 }
 
 struct Bs {
-	a string ['vaker:skip']
+	a string ['vaker:cc_type']
 }
 
 fn main() {
