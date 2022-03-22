@@ -23,10 +23,9 @@ pub fn email(ptr PtrInfo) {
 
 [inline]
 pub fn mac_address(ptr PtrInfo) {
-	random_hex := rand.hex(12)
 	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = '${random_hex[..2]}:${random_hex[2..4]}:${random_hex[4..6]}:${random_hex[6..8]}:${random_hex[8..10]}:${random_hex[10..]}'
+		*pointer = insert_sep(rand.hex(12), ':', 2)
 	}
 }
 
