@@ -29,3 +29,20 @@ pub fn mac_address(ptr PtrInfo) {
 		*pointer = '${random_hex[..2]}:${random_hex[2..4]}:${random_hex[4..6]}:${random_hex[6..8]}:${random_hex[8..10]}:${random_hex[10..]}'
 	}
 }
+
+[inline]
+pub fn domain_name(ptr PtrInfo) {
+	domain_tld := vaker.tld[rand.intn(vaker.tld.len) or { 0 }]
+	pointer := &string(ptr.ptr)
+	unsafe {
+		*pointer = '${rand_string(7, &lb_eng)}.$domain_tld'
+	}
+}
+
+[inline]
+pub fn user_name(ptr PtrInfo) {
+	pointer := &string(ptr.ptr)
+	unsafe {
+		*pointer = rand_string(7, &lb_eng)
+	}
+}

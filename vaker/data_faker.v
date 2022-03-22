@@ -30,6 +30,7 @@ mut:
 		'currency':               currency
 		'date':                   date
 		'day_of_week':            day_of_week
+		'domain_name':            domain_name
 		'e164_phone_number':      e164_phone_number
 		'email':                  email
 		'lat':                    latitude
@@ -42,6 +43,7 @@ mut:
 		'timezone':               timezone
 		'toll_free_phone_number': toll_free_phone_number
 		'unix_time':              unix_time
+		'user_name':              user_name
 		'uuid_digit':             digit
 		'uuid_hyphenated':        hyphenated
 		'year':                   year
