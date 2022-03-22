@@ -35,6 +35,7 @@ mut:
 		'email':                  email
 		'ipv4':                   ipv4
 		'ipv6':                   ipv6
+		'jwt':                    jwt
 		'lat':                    latitude
 		'long':                   longitude
 		'mac_address':            mac_address

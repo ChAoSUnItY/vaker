@@ -90,3 +90,12 @@ pub fn password(ptr PtrInfo) {
 		*pointer = rand_string(50, &lb_eng)
 	}
 }
+
+[inline]
+pub fn jwt(ptr PtrInfo) {
+	element := rand_string(40, &lb_eng)
+	pointer := &string(ptr.ptr)
+	unsafe {
+		*pointer = '${element}.${element}.$element'
+	}
+}
