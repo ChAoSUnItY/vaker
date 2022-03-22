@@ -75,3 +75,11 @@ pub fn ipv4(ptr PtrInfo) {
 		*pointer = insert_sep(rand_digit_string(8), '.', 2)
 	}
 }
+
+[inline]
+pub fn ipv6(ptr PtrInfo) {
+	pointer := &string(ptr.ptr)
+	unsafe {
+		*pointer = insert_sep(rand.hex(32), ':', 4)
+	}
+}

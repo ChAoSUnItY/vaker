@@ -19,6 +19,7 @@ const (
 		'e164_phone_number',
 		'email',
 		'ipv4',
+		'ipv6',
 		'lat',
 		'long',
 		'mac_address',
@@ -75,9 +76,9 @@ fn get_attrs<T>(_ T, fd &FieldData) (Attribute, []IError) {
 				}
 			}
 			'amount_with_currency', 'cc_number', 'cc_type', 'century', 'date', 'email',
-			'day_of_week', 'domain_name', 'ipv4', 'mac_address', 'month', 'period', 'timestamp',
-			'timezone', 'phone_number', 'toll_free_phone_number', 'url', 'user_name', 'uuid_digit',
-			'uuid_hyphenated', 'year' {
+			'day_of_week', 'domain_name', 'ipv4', 'ipv6', 'mac_address', 'month', 'period',
+			'timestamp', 'timezone', 'phone_number', 'toll_free_phone_number', 'url', 'user_name',
+			'uuid_digit', 'uuid_hyphenated', 'year' {
 				$if T !is string {
 					errors << wrong_type(attribute, T.name)
 					continue
