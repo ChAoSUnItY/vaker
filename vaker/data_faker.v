@@ -39,6 +39,7 @@ mut:
 		'long':                   longitude
 		'mac_address':            mac_address
 		'month':                  month
+		'password':               password
 		'period':                 period
 		'phone_number':           phone_number
 		'timestamp':              timestamp

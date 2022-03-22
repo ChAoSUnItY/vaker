@@ -82,3 +82,11 @@ pub fn ipv6(ptr PtrInfo) {
 		*pointer = insert_sep(rand.hex(32), ':', 4)
 	}
 }
+
+[inline]
+pub fn password(ptr PtrInfo) {
+	pointer := &string(ptr.ptr)
+	unsafe {
+		*pointer = rand_string(50, &lb_eng)
+	}
+}
