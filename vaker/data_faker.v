@@ -33,6 +33,7 @@ mut:
 		'domain_name':            domain_name
 		'e164_phone_number':      e164_phone_number
 		'email':                  email
+		'ipv4':                   ipv4
 		'lat':                    latitude
 		'long':                   longitude
 		'mac_address':            mac_address

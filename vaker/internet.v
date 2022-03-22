@@ -67,3 +67,11 @@ pub fn user_name(ptr PtrInfo) {
 		*pointer = rand_string(7, &lb_eng)
 	}
 }
+
+[inline]
+pub fn ipv4(ptr PtrInfo) {
+	pointer := &string(ptr.ptr)
+	unsafe {
+		*pointer = insert_sep(rand_digit_string(8), '.', 2)
+	}
+}
