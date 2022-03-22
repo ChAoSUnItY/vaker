@@ -16,3 +16,14 @@ pub fn rand_digit_string(len int) string {
 
 	return b.str()
 }
+
+pub fn rand_string(len int, lb &LangaugeBoundary) string {
+	mut runes := []rune{cap: len}
+
+	for i, _ := 0, 0; i < len; {
+		runes << rune(rand.int_in_range(lb.start, lb.end) or { panic(err) })
+		i++
+	}
+
+	return runes.string()
+}

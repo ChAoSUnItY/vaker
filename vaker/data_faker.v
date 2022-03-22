@@ -31,8 +31,10 @@ mut:
 		'date':                   date
 		'day_of_week':            day_of_week
 		'e164_phone_number':      e164_phone_number
+		'email':                  email
 		'lat':                    latitude
 		'long':                   longitude
+		'mac_address':            mac_address
 		'month':                  month
 		'period':                 period
 		'phone_number':           phone_number
