@@ -22,7 +22,11 @@ pub fn rand_string(len int, lb &LangaugeBoundary) string {
 	mut runes := []rune{cap: len}
 
 	for i, _ := 0, 0; i < len; {
-		runes << rune(rand.int_in_range(lb.start, lb.end) or { panic(err) })
+		mut b := rand.int_in_range(lb.start, lb.end) or { panic(err) }
+		for lb.exclude.contains(b) {
+			b = rand.int_in_range(lb.start, lb.end) or { panic(err) }
+		}
+		runes << rune(b)
 		i++
 	}
 
