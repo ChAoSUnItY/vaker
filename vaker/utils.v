@@ -2,6 +2,7 @@ module vaker
 
 import rand
 import strings
+import encoding.utf8
 
 [inline]
 pub fn rand_digit_string(len int) string {
@@ -26,4 +27,17 @@ pub fn rand_string(len int, lb &LangaugeBoundary) string {
 	}
 
 	return runes.string()
+}
+
+pub fn insert_sep(str string, sep string, step int) string {
+	len := str.len / step * (step + sep.len) - 1
+	mut b := strings.new_builder(len)
+	for i in 0 .. str.len {
+		if i != 0 && i % step == 0 {
+			b.write_string(sep)
+		}
+
+		b.write_string(utf8.raw_index(str, i))
+	}
+	return b.str()
 }
