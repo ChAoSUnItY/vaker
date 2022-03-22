@@ -43,6 +43,7 @@ mut:
 		'timezone':               timezone
 		'toll_free_phone_number': toll_free_phone_number
 		'unix_time':              unix_time
+		'url':                    url
 		'user_name':              user_name
 		'uuid_digit':             digit
 		'uuid_hyphenated':        hyphenated

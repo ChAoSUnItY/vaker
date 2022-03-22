@@ -1,7 +1,7 @@
 module vaker
 
 import rand
-import arrays
+import strconv
 
 const (
 	tld         = ['com', 'biz', 'info', 'net', 'org', 'ru']
@@ -36,6 +36,27 @@ pub fn domain_name(ptr PtrInfo) {
 	pointer := &string(ptr.ptr)
 	unsafe {
 		*pointer = '${rand_string(7, &lb_eng)}.$domain_tld'
+	}
+}
+
+[inline]
+pub fn url(ptr PtrInfo) {
+	format := vaker.url_formats[rand.intn(vaker.url_formats.len) or { 0 }]
+	count := format.count('%s')
+	domain_tld := vaker.tld[rand.intn(vaker.tld.len) or { 0 }]
+	domain_name := '${rand_string(7, &lb_eng)}.$domain_tld'
+	pointer := &string(ptr.ptr)
+
+	if count == 1 {
+		unsafe {
+			*pointer = strconv.v_sprintf(format, domain_name)
+		}
+	} else {
+		user_name := rand_string(7, &lb_eng)
+
+		unsafe {
+			*pointer = strconv.v_sprintf(format, domain_name, user_name)
+		}
 	}
 }
 
