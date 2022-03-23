@@ -218,7 +218,7 @@ pub fn timestamp(ptr PtrInfo) {
 pub fn century(ptr PtrInfo) {
 	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = vaker.centuries[rand.intn(vaker.centuries.len) or { 0 }]
+		*pointer = rand_element(vaker.centuries)
 	}
 }
 
@@ -226,7 +226,7 @@ pub fn century(ptr PtrInfo) {
 pub fn timezone(ptr PtrInfo) {
 	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = vaker.timezones[rand.intn(vaker.timezones.len) or { 0 }]
+		*pointer = rand_element(vaker.timezones)
 	}
 }
 
@@ -234,6 +234,6 @@ pub fn timezone(ptr PtrInfo) {
 pub fn period(ptr PtrInfo) {
 	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = vaker.periods[rand.intn(vaker.periods.len) or { 0 }]
+		*pointer = rand_element(vaker.periods)
 	}
 }

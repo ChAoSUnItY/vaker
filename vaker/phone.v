@@ -32,7 +32,7 @@ pub fn toll_free_phone_number(ptr PtrInfo) {
 	pointer := &string(ptr.ptr)
 	unsafe {
 		s.free()
-		box := vaker.box_digits1[rand.intn(2) or { 1 }]
+		box := rand_element(vaker.box_digits1)
 		*pointer = '($box) ${str[..3]}-${str[3..]}'
 	}
 }
@@ -47,7 +47,7 @@ pub fn e164_phone_number(ptr PtrInfo) {
 	pointer := &string(ptr.ptr)
 	unsafe {
 		s.free()
-		box := vaker.box_digits2[rand.intn(2) or { 1 }]
+		box := rand_element(vaker.box_digits2)
 		*pointer = '+$box$str'
 	}
 }

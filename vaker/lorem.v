@@ -260,9 +260,9 @@ fn random_sentence() string {
 	mut b := strings.new_builder(16)
 	for i in 0 .. len {
 		if i == 0 {
-			b.write_string(vaker.words[rand.intn(vaker.words.len) or { 0 }].title())
+			b.write_string(rand_element(vaker.words).title())
 		} else {
-			b.write_string(vaker.words[rand.intn(vaker.words.len) or { 0 }])
+			b.write_string(rand_element(vaker.words))
 		}
 
 		if i != len - 1 {
@@ -276,7 +276,7 @@ fn random_sentence() string {
 pub fn word(ptr PtrInfo) {
 	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = vaker.words[rand.intn(vaker.words.len) or { 0 }]
+		*pointer = rand_element(vaker.words)
 	}
 }
 

@@ -14,7 +14,7 @@ const (
 pub fn email(ptr PtrInfo) {
 	email_name := rand_string(7, &lb_eng)
 	email_domain := rand_string(7, &lb_eng)
-	email_tld := vaker.tld[rand.intn(vaker.tld.len) or { 0 }]
+	email_tld := rand_element(vaker.tld)
 	pointer := &string(ptr.ptr)
 	unsafe {
 		*pointer = '$email_name@${email_domain}.$email_tld'
@@ -31,7 +31,7 @@ pub fn mac_address(ptr PtrInfo) {
 
 [inline]
 pub fn domain_name(ptr PtrInfo) {
-	domain_tld := vaker.tld[rand.intn(vaker.tld.len) or { 0 }]
+	domain_tld := rand_element(vaker.tld)
 	pointer := &string(ptr.ptr)
 	unsafe {
 		*pointer = '${rand_string(7, &lb_eng)}.$domain_tld'
@@ -40,9 +40,9 @@ pub fn domain_name(ptr PtrInfo) {
 
 [inline]
 pub fn url(ptr PtrInfo) {
-	format := vaker.url_formats[rand.intn(vaker.url_formats.len) or { 0 }]
+	format := rand_element(vaker.url_formats)
 	count := format.count('%s')
-	domain_tld := vaker.tld[rand.intn(vaker.tld.len) or { 0 }]
+	domain_tld := rand_element(vaker.tld)
 	domain_name := '${rand_string(7, &lb_eng)}.$domain_tld'
 	pointer := &string(ptr.ptr)
 

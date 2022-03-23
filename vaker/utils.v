@@ -33,6 +33,11 @@ pub fn rand_string(len int, lb &LangaugeBoundary) string {
 	return runes.string()
 }
 
+[inline]
+pub fn rand_element<T>(arr []T) T {
+	return arr[rand.intn(arr.len) or { 0 }]
+}
+
 pub fn insert_sep(str string, sep string, step int) string {
 	len := str.len / step * (step + sep.len) - 1
 	mut b := strings.new_builder(len)

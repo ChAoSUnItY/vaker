@@ -1,7 +1,5 @@
 module vaker
 
-import rand
-
 struct CreditCard {
 	cc_type  string
 	length   int
@@ -24,11 +22,11 @@ const cc_types = [
 	'discover',
 	'jcb',
 	'diners club',
-]!
+]
 
 [inline]
 fn cc_typ() string {
-	return vaker.credit_cards[vaker.cc_types[rand.intn(vaker.cc_types.len) or { 0 }]].cc_type
+	return vaker.credit_cards[rand_element(vaker.cc_types)].cc_type
 }
 
 [inline]
@@ -43,7 +41,7 @@ pub fn cc_type(ptr PtrInfo) {
 pub fn cc_number(ptr PtrInfo) {
 	cc_type := cc_typ()
 	card := vaker.credit_cards[cc_type.to_lower()]
-	prefix := card.prefixes[rand.intn(card.prefixes.len) or { 0 }]
+	prefix := rand_element(card.prefixes)
 
 	pointer := &string(ptr.ptr)
 	unsafe {
