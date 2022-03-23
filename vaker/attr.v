@@ -25,9 +25,11 @@ const (
 		'long',
 		'mac_address',
 		'month',
+		'paragraph',
 		'password',
 		'period',
 		'phone_number',
+		'sentence',
 		'skip',
 		'str_len',
 		'timestamp',
@@ -38,6 +40,7 @@ const (
 		'user_name',
 		'uuid_digit',
 		'uuid_hyphenated',
+		'word',
 		'year',
 	]
 )
@@ -79,8 +82,9 @@ fn get_attrs<T>(_ T, fd &FieldData) (Attribute, []IError) {
 			}
 			'amount_with_currency', 'cc_number', 'cc_type', 'century', 'date', 'email',
 			'day_of_week', 'domain_name', 'ipv4', 'ipv6', 'jwt', 'mac_address', 'month',
-			'password', 'period', 'timestamp', 'timezone', 'phone_number',
-			'toll_free_phone_number', 'url', 'user_name', 'uuid_digit', 'uuid_hyphenated', 'year' {
+			'password', 'period', 'sentence', 'timestamp', 'timezone', 'phone_number', 'paragraph',
+			'toll_free_phone_number', 'url', 'user_name', 'uuid_digit', 'uuid_hyphenated', 'word',
+			'year' {
 				$if T !is string {
 					errors << wrong_type(attribute, T.name)
 					continue

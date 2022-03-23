@@ -40,9 +40,11 @@ mut:
 		'long':                   longitude
 		'mac_address':            mac_address
 		'month':                  month
+		'paragraph':              paragraph
 		'password':               password
 		'period':                 period
 		'phone_number':           phone_number
+		'sentence':               sentence
 		'timestamp':              timestamp
 		'timezone':               timezone
 		'toll_free_phone_number': toll_free_phone_number
@@ -51,6 +53,7 @@ mut:
 		'user_name':              user_name
 		'uuid_digit':             digit
 		'uuid_hyphenated':        hyphenated
+		'word':                   word
 		'year':                   year
 	}
 	current_attribute_function &fn (PtrInfo) = voidptr(0)
