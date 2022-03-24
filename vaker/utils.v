@@ -4,7 +4,6 @@ import rand
 import strings
 import encoding.utf8
 
-[inline]
 pub fn rand_digit_string(len int) string {
 	if len <= 0 {
 		return ''
