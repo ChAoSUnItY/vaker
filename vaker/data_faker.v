@@ -54,6 +54,9 @@ mut:
 		'period':                 period
 		'phone_number':           phone_number
 		'sentence':               sentence
+		'title_female':           title_female
+		'title_male':             title_male
+		'time':                   time
 		'timestamp':              timestamp
 		'timezone':               timezone
 		'toll_free_phone_number': toll_free_phone_number

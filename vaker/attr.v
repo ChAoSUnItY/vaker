@@ -41,8 +41,11 @@ const (
 		'sentence',
 		'skip',
 		'str_len',
+		'time',
 		'timestamp',
 		'timezone',
+		'title_female',
+		'title_male',
 		'toll_free_phone_number',
 		'unix_time',
 		'url',
@@ -93,8 +96,9 @@ fn get_attrs<T>(_ T, fd &FieldData) (Attribute, []IError) {
 			'day_of_week', 'domain_name', 'ipv4', 'ipv6', 'jwt', 'mac_address', 'month',
 			'password', 'period', 'sentence', 'timestamp', 'timezone', 'phone_number', 'paragraph',
 			'toll_free_phone_number', 'url', 'user_name', 'uuid_digit', 'uuid_hyphenated', 'word',
-			'year', 'chinese_first_name', 'chinese_last_name', 'chinese_name', 'first_name',
-			'first_name_female', 'first_name_male', 'gender', 'last_name', 'name' {
+			'year', 'title_female', 'title_male', 'chinese_first_name', 'chinese_last_name',
+			'chinese_name', 'first_name', 'first_name_female', 'first_name_male', 'gender',
+			'last_name', 'name' {
 				$if T !is string {
 					errors << wrong_type(attribute, T.name)
 					continue
