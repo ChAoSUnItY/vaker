@@ -27,19 +27,28 @@ mut:
 		'cc_number':              cc_number
 		'cc_type':                cc_type
 		'century':                century
+		'chinese_first_name':     chinese_first_name
+		'chinese_last_name':      chinese_last_name
+		'chinese_name':           chinese_name
 		'currency':               currency
 		'date':                   date
 		'day_of_week':            day_of_week
 		'domain_name':            domain_name
 		'e164_phone_number':      e164_phone_number
 		'email':                  email
+		'first_name':             first_name
+		'first_name_female':      first_name_female
+		'first_name_male':        first_name_male
+		'gender':                 gender
 		'ipv4':                   ipv4
 		'ipv6':                   ipv6
 		'jwt':                    jwt
+		'last_name':              last_name
 		'lat':                    latitude
 		'long':                   longitude
 		'mac_address':            mac_address
 		'month':                  month
+		'name':                   name
 		'paragraph':              paragraph
 		'password':               password
 		'period':                 period

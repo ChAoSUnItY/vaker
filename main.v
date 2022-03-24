@@ -6,7 +6,7 @@ import time
 struct St {
 	Bs
 	time time.Time ['vaker:unix_time']
-	a    string    ['vaker:paragraph']
+	a    string    ['vaker:name']
 	lat  f32       ['vaker:lat']
 	long f64       ['vaker:long']
 }
