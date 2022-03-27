@@ -5,12 +5,51 @@ A light-weight data faker written in V Lang.
 
 ## Usage
 
+### Basic
 ```v
 import vaker
 
 fn main() {
     a := []string{len:10}
     vaker.fake_data(&a)
+}
+```
+
+### Credit Card
+```v
+import vaker
+
+// Don't add [required] so you don't have to assign all values at start
+struct MemberInfo {
+	member_name        string ['vaker:name']
+	credit_card_type   string ['vaker:cc_type']
+	credit_card_number string ['vaker:cc_number']
+}
+
+fn main() {
+	a := MemberInfo{}
+	vaker.fake_data(&a)
+}
+```
+
+### Geo-related data
+```v
+import vaker
+
+struct GeoData {
+	location  Location
+	email	  string   ['vaker:email']
+	user_name string   ['vaker:user_name']
+}
+
+struct Location {
+	longtitude string ['vaker:long']
+	latitude   string ['vaker:lat']
+}
+
+fn main() {
+	a := GeoData{}
+	vaker.fake_data(&a)
 }
 ```
 
@@ -32,7 +71,7 @@ See [Limitations](#limitations)
 
 ## Supported Attributes
 
-TODO
+See [main.v](./main.v) for full attribute list and their effects.
 
 ## Spec
 

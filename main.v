@@ -46,6 +46,7 @@ struct St {
 	uuid_hypenated         string ['vaker:uuid_hyphenated']
 	uuid                   string ['vaker:uuid_digit']
 	skip                   string ['vaker:skip']
+	str_len5               string ['vaker:str_len=5'] // Default len is set to 10
 }
 
 fn main() {
@@ -97,4 +98,5 @@ fn main() {
 //     uuid_hypenated: '838bd7e3-a3f3-4183-8a18-9bfa6bb7dd0d'
 //     uuid: 'a1b4dc9f0a6b4008a4eeeef47e30e6a0'
 //     skip: ''
+//	   str_len5: 'Vck^K'
 // }
