@@ -1,7 +1,7 @@
 # vaker
-A light-weight data faker written in V Lang.
+> Light-weight data faker built in V to generate massive amounts of fake (but realistic) data for testing and development.
 
-[![ Vaker-doc - Document](https://img.shields.io/badge/_Vaker--doc-Document-2ea44f?logo=V)](https://chaosunity.github.io/Vaker-doc/)
+[![Vaker-doc - Document](https://img.shields.io/badge/_Vaker--doc-Document-2ea44f?logo=V)](https://chaosunity.github.io/Vaker-doc/)
 
 ## Usage
 
