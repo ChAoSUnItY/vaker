@@ -2,26 +2,29 @@ module vaker
 
 [params]
 struct PtrInfo {
+pub:
 	ptr voidptr
 	sz  usize
 }
 
+// DataFaker holds various data faking settings for vaker to process with
 pub struct DataFaker {
 mut:
-	lb                  &LangaugeBoundary = &lb_eng
-	str_len             int = 10
-	max_arr_len         int = 10
-	min_arr_len         int
-	max_map_len         int = 10
-	min_map_len         int
-	rand_max_sz         i64 = 100
-	rand_min_sz         i64
-	rand_max_usz        u64 = 100
-	rand_min_usz        u64
-	rand_max_fsz        f64 = 100
-	rand_min_fsz        f64
-	primitive_invokers  PrimitiveInvokers       = primitive_invokers
-	attribute_functions map[string]fn (PtrInfo) = {
+	lb                           &LangaugeBoundary = &lb_eng
+	str_len                      int = 10
+	max_arr_len                  int = 10
+	min_arr_len                  int
+	max_map_len                  int = 10
+	min_map_len                  int
+	rand_max_sz                  i64 = 100
+	rand_min_sz                  i64
+	rand_max_usz                 u64 = 100
+	rand_min_usz                 u64
+	rand_max_fsz                 f64 = 100
+	rand_min_fsz                 f64
+	primitive_invokers           PrimitiveInvokers = primitive_invokers
+	external_attribute_functions map[string]map[string]fn (PtrInfo) = {}
+	attribute_functions          map[string]fn (PtrInfo) = {
 		'amount':                 amount
 		'amount_with_currency':   amount_with_currency
 		'cc_number':              cc_number
@@ -69,4 +72,35 @@ mut:
 		'year':                   year
 	}
 	current_attribute_function &fn (PtrInfo) = voidptr(0)
+}
+
+// Creates a new DataFaker from global one
+pub fn new_df() DataFaker {
+	return DataFaker{
+		...default_df
+	}
+}
+
+pub fn (mut df DataFaker) register(unit_name string) {
+	df.external_attribute_functions[unit_name] = {}
+}
+
+pub fn (df DataFaker) has_unit(unit_name string) bool {
+	return unit_name in df.external_attribute_functions
+}
+
+pub fn (mut df DataFaker) register_fn(unit_name string, attribute_name string, fn_ptr fn (PtrInfo)) ? {
+	if unit_name !in df.external_attribute_functions {
+		return error('Unit $unit_name does not exist, call `DataFaker#register(string)` first')
+	}
+
+	if attribute_name in df.external_attribute_functions[unit_name] {
+		return error('Attribute $attribute_name in unit $unit_name already exist')
+	}
+
+	df.external_attribute_functions[unit_name][attribute_name] = fn_ptr
+}
+
+pub fn (df DataFaker) has_attribute(unit_name string, attribute_name string) bool {
+	return df.has_unit(unit_name) && attribute_name in df.external_attribute_functions[unit_name]
 }

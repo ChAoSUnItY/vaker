@@ -71,7 +71,7 @@ See [Limitations](#limitations)
 
 ## Supported Attributes
 
-See [main.v](./main.v) for full attribute list and their effects.
+See [example.v](./example.v) for full attribute list and their effects.
 
 ## Spec
 

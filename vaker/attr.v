@@ -3,7 +3,7 @@ module vaker
 import arrays { binary_search }
 import time
 
-type Attribute = map[string][]string
+type Attribute = map[string]map[string][]string
 
 const (
 	builtin_attrs = [
@@ -64,13 +64,15 @@ struct Struct {
 // get_attrs can effectively collect valid attributes by asserting type symbol T
 // For example: attribute `str_len` would eprintln when type symbol T is not `string`
 [inline]
-fn get_attrs<T>(_ T, fd &FieldData) (Attribute, []IError) {
+fn get_attrs<T>(_ T, fd &FieldData, df &DataFaker) (Attribute, []IError) {
+	// Process vaker builtin attribute functions first
 	attrs := fd.attrs.filter(it.starts_with('vaker')).map(it.trim_string_left('vaker:')).map(it.split_any(':='))
 	wrong_type := fn (attribute string, type_name string) IError {
 		return error('Attribute `$attribute` could not apply on type $type_name')
 	}
 	mut errors := []IError{cap: 4}
-	mut checked_attrs := map[string][]string{}
+	// map[unit_name]map[attribute_name][]args
+	mut checked_attrs := map[string]map[string][]string{}
 	{
 		cap:
 		1
@@ -135,7 +137,17 @@ fn get_attrs<T>(_ T, fd &FieldData) (Attribute, []IError) {
 			}
 		}
 
-		checked_attrs[attribute] = attr[1..]
+		checked_attrs['vaker'][attribute] = attr[1..]
+	}
+	for custom_attrs in fd.attrs.filter(!it.starts_with('vaker')) {
+		split := custom_attrs.split(':')
+		if split.len != 2 {
+			errors << error('Invalid custom attribute format, valid example: `unit_name:attr_name`')
+			continue
+		}
+		if df.has_attribute(split[0], split[1]) {
+			checked_attrs[split[0]][split[1]] = []
+		}
 	}
 
 	return Attribute(checked_attrs), errors
@@ -143,7 +155,9 @@ fn get_attrs<T>(_ T, fd &FieldData) (Attribute, []IError) {
 
 // Check whether field is tagged with 'vaker:skip'
 fn (attr &Attribute) skip() bool {
-	return 'skip' in attr
+	return unsafe {
+		'skip' in attr['vaker']
+	}
 }
 
 // Clone and modify DataFaker's field to satisfy field's attribute.
@@ -154,17 +168,25 @@ fn mod<T>(_ &T, attr &Attribute, df &DataFaker) DataFaker {
 	mut keys := df.attribute_functions.keys()
 	keys.sort()
 
-	match true {
-		'str_len' in attr {
-			cm_df.str_len = (*attr)['str_len'][0].int()
-		}
-		else {
-			for a in attr.keys() {
-				func := binary_search(keys, a) or { panic(err) }
-				cm_df.current_attribute_function = &(df.attribute_functions[keys[func]])
+	unsafe {
+		match true {
+			'str_len' in attr['vaker'] {
+				cm_df.str_len = attr['vaker']['str_len'][0].int()
+			}
+			else {
+				for unit_name in attr.keys() {
+					for attribute_name in attr[unit_name].keys() {
+						if unit_name == 'vaker' {
+							func := binary_search(keys, attribute_name) or { panic(err) }
+							cm_df.current_attribute_function = &(df.attribute_functions[keys[func]])
+						} else {
+							func := df.external_attribute_functions[unit_name][attribute_name]
+							cm_df.current_attribute_function = &func
+						}
+					}
+				}
 			}
 		}
 	}
-
 	return cm_df
 }
