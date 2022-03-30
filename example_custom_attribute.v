@@ -16,6 +16,12 @@ fn main() {
 	ex := Example{}
 	vaker.fake_data_wdf(&ex, &custom_df)
 	println(ex)
+
+//  Example{
+//      my_word: 'I am ChAoS!'
+//      int_field: 50
+//      i64_field: 100
+//  }
 }
 
 fn my_word(ptr vaker.PtrInfo) {
