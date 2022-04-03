@@ -3,12 +3,13 @@ module vaker
 [params]
 struct PtrInfo {
 pub:
-	ptr voidptr
-	sz  usize
+	ptr      voidptr
+	sz       usize // Used for very limited type checking cases, commonly when multiple acceptable types has unique sizes
+	type_idx int   // Used for common type checking cases when size checking does not satisfy
 }
 
 struct ExternalAttributeFn {
-	function              fn (PtrInfo)
+	function fn (PtrInfo)
 mut:
 	acceptable_type_names []string
 	acceptable_type_idxs  []int
@@ -111,11 +112,9 @@ pub fn (mut df DataFaker) register_fn<T>(unit_name string, attribute_name string
 		return error('Attribute $attribute_name in unit $unit_name already exist')
 	}
 
-	df.external_attribute_functions[unit_name][attribute_name] = ExternalAttributeFn {
-		fn_ptr,
-		[T.name],
-		[T.idx]
-	}
+	df.external_attribute_functions[unit_name][attribute_name] = ExternalAttributeFn{fn_ptr, [
+		T.name,
+	], [T.idx]}
 }
 
 pub fn (mut df DataFaker) add_type<T>(unit_name string, attribute_name string) ? {

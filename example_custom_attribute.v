@@ -33,15 +33,29 @@ fn my_word(ptr vaker.PtrInfo) {
 }
 
 fn multiple_type(ptr vaker.PtrInfo) {
+	// unsafe {
+	// 	if ptr.sz == 4 {
+	// 		// int
+	// 		pointer := &int(ptr.ptr)
+	// 		*pointer = 50
+	// 	} else {
+	// 		// you should assume it's long, otherwise, there'll be no other possible castings
+	// 		pointer := &i64(ptr.ptr)
+	// 		*pointer = 100
+	// 	}
+	// }
+
+	// alternative: check by type idx (Enhanced way to check type)
 	unsafe {
-		if ptr.sz == 4 {
+		if vaker.is_type<int>(ptr.type_idx) {
 			// int
 			pointer := &int(ptr.ptr)
 			*pointer = 50
-		} else {
-			// you should assume it's long, otherwise, there'll be no other possible castings
+		} else if vaker.is_type<i64>(ptr.type_idx) {
+			// i64
 			pointer := &i64(ptr.ptr)
 			*pointer = 100
 		}
+		// You don't have to handle the unmatched types, they've been checked before faking phase
 	}
 }

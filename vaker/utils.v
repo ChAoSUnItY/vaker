@@ -49,3 +49,7 @@ pub fn insert_sep(str string, sep string, step int) string {
 	}
 	return b.str()
 }
+
+pub fn is_type<T>(idx int) bool {
+	return T.idx == idx
+}
