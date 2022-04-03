@@ -145,8 +145,19 @@ fn get_attrs<T>(_ T, fd &FieldData, df &DataFaker) (Attribute, []IError) {
 			errors << error('Invalid custom attribute format, valid example: `unit_name:attr_name`')
 			continue
 		}
-		if df.has_attribute(split[0], split[1]) {
-			checked_attrs[split[0]][split[1]] = []
+		unit_name, attr_name := split[0], split[1]		
+		if df.has_attribute(unit_name, attr_name) {
+			eaf := df.external_attribute_functions[unit_name][attr_name]
+
+			if T.idx !in eaf.acceptable_type_idxs {
+				errors << error('Unacceptable type `${T.name}` for attribute function `${unit_name}:${attr_name}` which accepts [${eaf.acceptable_type_names.join(", ")}]')
+				continue
+			}
+
+			checked_attrs[unit_name][attr_name] = []
+		} else {
+			errors << error('Unknown attribute function `${unit_name}:${attr_name}`')
+			continue
 		}
 	}
 
@@ -180,7 +191,7 @@ fn mod<T>(_ &T, attr &Attribute, df &DataFaker) DataFaker {
 							func := binary_search(keys, attribute_name) or { panic(err) }
 							cm_df.current_attribute_function = &(df.attribute_functions[keys[func]])
 						} else {
-							func := df.external_attribute_functions[unit_name][attribute_name]
+							func := df.external_attribute_functions[unit_name][attribute_name].function
 							cm_df.current_attribute_function = &func
 						}
 					}

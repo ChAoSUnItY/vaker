@@ -7,6 +7,18 @@ pub:
 	sz  usize
 }
 
+struct ExternalAttributeFn {
+	function              fn (PtrInfo)
+mut:
+	acceptable_type_names []string
+	acceptable_type_idxs  []int
+}
+
+fn (mut eaf ExternalAttributeFn) add_type(type_name string, type_idx int) {
+	eaf.acceptable_type_names << type_name
+	eaf.acceptable_type_idxs << type_idx
+}
+
 // DataFaker holds various data faking settings for vaker to process with
 pub struct DataFaker {
 mut:
@@ -23,7 +35,7 @@ mut:
 	rand_max_fsz                 f64 = 100
 	rand_min_fsz                 f64
 	primitive_invokers           PrimitiveInvokers = primitive_invokers
-	external_attribute_functions map[string]map[string]fn (PtrInfo) = {}
+	external_attribute_functions map[string]map[string]ExternalAttributeFn = {}
 	attribute_functions          map[string]fn (PtrInfo) = {
 		'amount':                 amount
 		'amount_with_currency':   amount_with_currency
@@ -89,7 +101,8 @@ pub fn (df DataFaker) has_unit(unit_name string) bool {
 	return unit_name in df.external_attribute_functions
 }
 
-pub fn (mut df DataFaker) register_fn(unit_name string, attribute_name string, fn_ptr fn (PtrInfo)) ? {
+// register an attribute function with unit name and attribute name, must specify at least an acceptable type for attribute function to satisfy with
+pub fn (mut df DataFaker) register_fn<T>(unit_name string, attribute_name string, fn_ptr fn (PtrInfo)) ? {
 	if unit_name !in df.external_attribute_functions {
 		return error('Unit $unit_name does not exist, call `DataFaker#register(string)` first')
 	}
@@ -98,7 +111,23 @@ pub fn (mut df DataFaker) register_fn(unit_name string, attribute_name string, f
 		return error('Attribute $attribute_name in unit $unit_name already exist')
 	}
 
-	df.external_attribute_functions[unit_name][attribute_name] = fn_ptr
+	df.external_attribute_functions[unit_name][attribute_name] = ExternalAttributeFn {
+		fn_ptr,
+		[T.name],
+		[T.idx]
+	}
+}
+
+pub fn (mut df DataFaker) add_type<T>(unit_name string, attribute_name string) ? {
+	if unit_name !in df.external_attribute_functions {
+		return error('Unit $unit_name does not exist, call `DataFaker#register(string)` first')
+	}
+
+	if attribute_name !in df.external_attribute_functions[unit_name] {
+		return error('Attribute $attribute_name does not exist in unit $unit_name')
+	}
+
+	df.external_attribute_functions[unit_name][attribute_name].add_type(T.name, T.idx)
 }
 
 pub fn (df DataFaker) has_attribute(unit_name string, attribute_name string) bool {
