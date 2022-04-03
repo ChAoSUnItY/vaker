@@ -137,7 +137,7 @@ const (
 )
 
 [inline]
-fn unix_t() time.Time {
+pub fn unix_t() time.Time {
 	return time.unix(math.abs(rand.i64()) % time.now().unix_time())
 }
 
