@@ -146,10 +146,10 @@ pub fn unix_time(ptr PtrInfo) {
 	unsafe {
 		match ptr.sz {
 			8 {
-				cast_assign<i64>(ptr, math.abs(rand.i64()))
+				cast_assign(ptr, math.abs(rand.i64()))
 			}
 			sizeof(time.Time) {
-				cast_assign<time.Time>(ptr, unix_t())
+				cast_assign(ptr, unix_t())
 			}
 			else {}
 		}
@@ -159,62 +159,62 @@ pub fn unix_time(ptr PtrInfo) {
 [inline]
 pub fn date(ptr PtrInfo) {
 	unsafe {
-		cast_assign<string>(ptr, unix_t().get_fmt_date_str(.hyphen, .yyyymmdd))
+		cast_assign(ptr, unix_t().get_fmt_date_str(.hyphen, .yyyymmdd))
 	}
 }
 
 [inline]
 pub fn time(ptr PtrInfo) {
 	unsafe {
-		cast_assign<string>(ptr, unix_t().get_fmt_time_str(.hhmmss24))
+		cast_assign(ptr, unix_t().get_fmt_time_str(.hhmmss24))
 	}
 }
 
 [inline]
 pub fn month(ptr PtrInfo) {
 	unsafe {
-		cast_assign<string>(ptr, unix_t().smonth())
+		cast_assign(ptr, unix_t().smonth())
 	}
 }
 
 [inline]
 pub fn year(ptr PtrInfo) {
 	unsafe {
-		cast_assign<string>(ptr, unix_t().ymmdd().split('-')[0])
+		cast_assign(ptr, unix_t().ymmdd().split('-')[0])
 	}
 }
 
 [inline]
 pub fn day_of_week(ptr PtrInfo) {
 	unsafe {
-		cast_assign<string>(ptr, unix_t().long_weekday_str())
+		cast_assign(ptr, unix_t().long_weekday_str())
 	}
 }
 
 [inline]
 pub fn timestamp(ptr PtrInfo) {
 	unsafe {
-		cast_assign<string>(ptr, unix_t().format_ss())
+		cast_assign(ptr, unix_t().format_ss())
 	}
 }
 
 [inline]
 pub fn century(ptr PtrInfo) {
 	unsafe {
-		cast_assign<string>(ptr, rand_element(vaker.centuries))
+		cast_assign(ptr, rand_element(vaker.centuries))
 	}
 }
 
 [inline]
 pub fn timezone(ptr PtrInfo) {
 	unsafe {
-		cast_assign<string>(ptr, rand_element(vaker.timezones))
+		cast_assign(ptr, rand_element(vaker.timezones))
 	}
 }
 
 [inline]
 pub fn period(ptr PtrInfo) {
 	unsafe {
-		cast_assign<string>(ptr, rand_element(vaker.periods))
+		cast_assign(ptr, rand_element(vaker.periods))
 	}
 }

@@ -16,14 +16,14 @@ pub fn email(ptr PtrInfo) {
 	email_domain := rand_string(7, &lb_eng)
 	email_tld := rand_element(vaker.tld)
 	unsafe {
-		cast_assign<string>(ptr, '$email_name@${email_domain}.$email_tld')
+		cast_assign(ptr, '$email_name@${email_domain}.$email_tld')
 	}
 }
 
 [inline]
 pub fn mac_address(ptr PtrInfo) {
 	unsafe {
-		cast_assign<string>(ptr, insert_sep(rand.hex(12), ':', 2))
+		cast_assign(ptr, insert_sep(rand.hex(12), ':', 2))
 	}
 }
 
@@ -31,7 +31,7 @@ pub fn mac_address(ptr PtrInfo) {
 pub fn domain_name(ptr PtrInfo) {
 	domain_tld := rand_element(vaker.tld)
 	unsafe {
-		cast_assign<string>(ptr, '${rand_string(7, &lb_eng)}.$domain_tld')
+		cast_assign(ptr, '${rand_string(7, &lb_eng)}.$domain_tld')
 	}
 }
 
@@ -44,13 +44,13 @@ pub fn url(ptr PtrInfo) {
 
 	if count == 1 {
 		unsafe {
-			cast_assign<string>(ptr, strconv.v_sprintf(format, domain_name))
+			cast_assign(ptr, strconv.v_sprintf(format, domain_name))
 		}
 	} else {
 		user_name := rand_string(7, &lb_eng)
 
 		unsafe {
-			cast_assign<string>(ptr, strconv.v_sprintf(format, domain_name, user_name))
+			cast_assign(ptr, strconv.v_sprintf(format, domain_name, user_name))
 		}
 	}
 }
@@ -58,28 +58,28 @@ pub fn url(ptr PtrInfo) {
 [inline]
 pub fn user_name(ptr PtrInfo) {
 	unsafe {
-		cast_assign<string>(ptr, rand_string(7, &lb_eng))
+		cast_assign(ptr, rand_string(7, &lb_eng))
 	}
 }
 
 [inline]
 pub fn ipv4(ptr PtrInfo) {
 	unsafe {
-		cast_assign<string>(ptr, insert_sep(rand_digit_string(8), '.', 2))
+		cast_assign(ptr, insert_sep(rand_digit_string(8), '.', 2))
 	}
 }
 
 [inline]
 pub fn ipv6(ptr PtrInfo) {
 	unsafe {
-		cast_assign<string>(ptr, insert_sep(rand.hex(32), ':', 4))
+		cast_assign(ptr, insert_sep(rand.hex(32), ':', 4))
 	}
 }
 
 [inline]
 pub fn password(ptr PtrInfo) {
 	unsafe {
-		cast_assign<string>(ptr, rand_string(50, &lb_eng))
+		cast_assign(ptr, rand_string(50, &lb_eng))
 	}
 }
 
@@ -87,6 +87,6 @@ pub fn password(ptr PtrInfo) {
 pub fn jwt(ptr PtrInfo) {
 	element := rand_string(40, &lb_eng)
 	unsafe {
-		cast_assign<string>(ptr, '${element}.${element}.$element')
+		cast_assign(ptr, '${element}.${element}.$element')
 	}
 }
