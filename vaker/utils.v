@@ -55,11 +55,6 @@ pub fn is_type<T>(ptr PtrInfo) bool {
 	return T.idx == ptr.type_idx
 }
 
-[inline]
-pub fn cast<T>(ptr PtrInfo) &T {
-	return &T(ptr.ptr)
-}
-
 [inline; unsafe]
 pub fn cast_assign<T>(ptr PtrInfo, value T) {
 	unsafe {

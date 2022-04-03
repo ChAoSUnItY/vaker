@@ -49,12 +49,10 @@ fn multiple_type(ptr vaker.PtrInfo) {
 	unsafe {
 		if vaker.is_type<int>(ptr) {
 			// int
-			pointer := vaker.cast<int>(ptr)
-			*pointer = 50
+			vaker.cast_assign<int>(ptr, 50)
 		} else if vaker.is_type<i64>(ptr) {
 			// i64
-			pointer := vaker.cast<i64>(ptr)
-			*pointer = 100
+			vaker.cast_assign<i64>(ptr, 100)
 		}
 		// You don't have to handle the unmatched types, they've been checked before faking phase
 	}
