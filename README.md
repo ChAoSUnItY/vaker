@@ -53,6 +53,31 @@ fn main() {
 }
 ```
 
+### Custom faking functions
+> You can find the custom faking function example in [example_custom_attribute.v](/example_custom_attribute.v)
+To add custom faking functions:
+
+1. Clone a DataFaker
+```v
+mut df := vaker.new_df()
+```
+
+2. register a unit (or domain)
+```v
+df.register('your unit')
+```
+
+3. create a faking function, faking function must be `fn (vaker.PtrInfo)`, you'll need to provide a type parameter to specify which type your faking function at least support
+```v
+df.register_fn<TypeHere>('your domain', 'your faking function's name', faking_function_ptr) ?
+```
+
+4. (Optional) to support more types to be accepted by your faking function, call `vaker.DataFaker#add_type<T>(string, string)`
+```v
+// add support for string type
+df.add_type<string>('your unit', 'your faking function's name') ?
+```
+
 ## Supported Data Types
 
 Vaker supports:  
