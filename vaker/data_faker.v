@@ -15,6 +15,7 @@ mut:
 	acceptable_type_idxs  []int
 }
 
+[inline]
 fn (mut eaf ExternalAttributeFn) add_type(type_name string, type_idx int) {
 	eaf.acceptable_type_names << type_name
 	eaf.acceptable_type_idxs << type_idx
@@ -88,16 +89,19 @@ mut:
 }
 
 // Creates a new DataFaker from global one
+[inline]
 pub fn new_df() DataFaker {
 	return DataFaker{
 		...default_df
 	}
 }
 
+[inline]
 pub fn (mut df DataFaker) register(unit_name string) {
 	df.external_attribute_functions[unit_name] = {}
 }
 
+[inline]
 pub fn (df DataFaker) has_unit(unit_name string) bool {
 	return unit_name in df.external_attribute_functions
 }
@@ -129,6 +133,7 @@ pub fn (mut df DataFaker) add_type<T>(unit_name string, attribute_name string) ?
 	df.external_attribute_functions[unit_name][attribute_name].add_type(T.name, T.idx)
 }
 
+[inline]
 pub fn (df DataFaker) has_attribute(unit_name string, attribute_name string) bool {
 	return df.has_unit(unit_name) && attribute_name in df.external_attribute_functions[unit_name]
 }
