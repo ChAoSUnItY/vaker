@@ -478,9 +478,8 @@ fn concat(a []string, b []string) []string {
 
 [inline]
 fn assign(ptr PtrInfo, target_list []string) {
-	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = rand_element(target_list)
+		cast_assign(ptr, rand_element(target_list))
 	}
 }
 
@@ -528,9 +527,8 @@ pub fn name(ptr PtrInfo) {
 		rand_element(vaker.first_names_female)
 	}
 	last_name := rand_element(vaker.last_names)
-	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = '$title $first_name $last_name'
+		cast_assign(ptr, '$title $first_name $last_name')
 	}
 }
 
@@ -551,8 +549,7 @@ pub fn chinese_last_name(ptr PtrInfo) {
 
 [inline]
 pub fn chinese_name(ptr PtrInfo) {
-	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = '${rand_element(vaker.chinese_first_names)}${rand_element(vaker.chinese_last_names)}'
+		cast_assign(ptr, '${rand_element(vaker.chinese_first_names)}${rand_element(vaker.chinese_last_names)}')
 	}
 }

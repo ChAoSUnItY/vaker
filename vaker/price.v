@@ -29,20 +29,16 @@ pub fn currency(ptr PtrInfo) {
 [inline]
 pub fn amount(ptr PtrInfo) {
 	amount := precision(rand.f64() * pow10(intn(9) or { 1 }), intn(3) or { 1 } + 1)
-	match ptr.sz {
-		4 {
-			pointer := &f32(ptr.ptr)
-			unsafe {
-				*pointer = f32(amount)
+	unsafe {
+		match ptr.sz {
+			4 {
+				cast_assign(ptr, f32(amount))
 			}
-		}
-		8 {
-			pointer := &f64(ptr.ptr)
-			unsafe {
-				*pointer = amount
+			8 {
+				cast_assign(ptr, amount)
 			}
+			else {}
 		}
-		else {}
 	}
 }
 
@@ -50,9 +46,8 @@ pub fn amount(ptr PtrInfo) {
 pub fn amount_with_currency(ptr PtrInfo) {
 	amount := precision(rand.f64() * pow10(intn(9) or { 1 }), intn(3) or { 1 } + 1)
 	currecy := rand_element(vaker.currencies)
-	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = '$amount $currecy'
+		cast_assign(ptr, '$amount $currecy')
 	}
 }
 

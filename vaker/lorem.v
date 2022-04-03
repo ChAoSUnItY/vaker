@@ -274,17 +274,15 @@ fn random_sentence() string {
 
 [inline]
 pub fn word(ptr PtrInfo) {
-	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = rand_element(vaker.words)
+		cast_assign(ptr, rand_element(vaker.words))
 	}
 }
 
 [inline]
 pub fn sentence(ptr PtrInfo) {
-	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = random_sentence()
+		cast_assign(ptr, random_sentence())
 	}
 }
 
@@ -300,8 +298,7 @@ pub fn paragraph(ptr PtrInfo) {
 			b.write_string(' ')
 		}
 	}
-	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = b.str()
+		cast_assign(ptr, b.str())
 	}
 }

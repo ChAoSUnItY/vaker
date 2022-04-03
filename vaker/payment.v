@@ -31,9 +31,8 @@ fn cc_typ() string {
 
 [inline]
 pub fn cc_type(ptr PtrInfo) {
-	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = cc_typ()
+		cast_assign(ptr, cc_typ())
 	}
 }
 
@@ -43,8 +42,7 @@ pub fn cc_number(ptr PtrInfo) {
 	card := vaker.credit_cards[cc_type.to_lower()]
 	prefix := rand_element(card.prefixes)
 
-	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = '$prefix${rand_digit_string(card.length - prefix.str().len)}'
+		cast_assign(ptr, '$prefix${rand_digit_string(card.length - prefix.str().len)}')
 	}
 }
