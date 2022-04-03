@@ -143,97 +143,78 @@ fn unix_t() time.Time {
 
 [inline]
 pub fn unix_time(ptr PtrInfo) {
-	match ptr.sz {
-		8 {
-			pointer := &i64(ptr.ptr)
-			unsafe {
-				*pointer = math.abs(rand.i64())
+	unsafe {
+		match ptr.sz {
+			8 {
+				cast_assign<i64>(ptr, math.abs(rand.i64()))
 			}
-		}
-		sizeof(time.Time) {
-			pointer := &time.Time(ptr.ptr)
-			unsafe {
-				*pointer = unix_t()
+			sizeof(time.Time) {
+				cast_assign<time.Time>(ptr, unix_t())
 			}
+			else {}
 		}
-		else {}
 	}
 }
 
 [inline]
 pub fn date(ptr PtrInfo) {
-	unix := unix_t()
-	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = unix.get_fmt_date_str(.hyphen, .yyyymmdd)
+		cast_assign<string>(ptr, unix_t().get_fmt_date_str(.hyphen, .yyyymmdd))
 	}
 }
 
 [inline]
 pub fn time(ptr PtrInfo) {
-	unix := unix_t()
-	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = unix.get_fmt_time_str(.hhmmss24)
+		cast_assign<string>(ptr, unix_t().get_fmt_time_str(.hhmmss24))
 	}
 }
 
 [inline]
 pub fn month(ptr PtrInfo) {
-	unix := unix_t()
-	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = unix.smonth()
+		cast_assign<string>(ptr, unix_t().smonth())
 	}
 }
 
 [inline]
 pub fn year(ptr PtrInfo) {
-	unix := unix_t()
-	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = unix.ymmdd().split('-')[0]
+		cast_assign<string>(ptr, unix_t().ymmdd().split('-')[0])
 	}
 }
 
 [inline]
 pub fn day_of_week(ptr PtrInfo) {
-	unix := unix_t()
-	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = unix.long_weekday_str()
+		cast_assign<string>(ptr, unix_t().long_weekday_str())
 	}
 }
 
 [inline]
 pub fn timestamp(ptr PtrInfo) {
-	unix := unix_t()
-	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = unix.format_ss()
+		cast_assign<string>(ptr, unix_t().format_ss())
 	}
 }
 
 [inline]
 pub fn century(ptr PtrInfo) {
-	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = rand_element(vaker.centuries)
+		cast_assign<string>(ptr, rand_element(vaker.centuries))
 	}
 }
 
 [inline]
 pub fn timezone(ptr PtrInfo) {
-	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = rand_element(vaker.timezones)
+		cast_assign<string>(ptr, rand_element(vaker.timezones))
 	}
 }
 
 [inline]
 pub fn period(ptr PtrInfo) {
-	pointer := &string(ptr.ptr)
 	unsafe {
-		*pointer = rand_element(vaker.periods)
+		cast_assign<string>(ptr, rand_element(vaker.periods))
 	}
 }
