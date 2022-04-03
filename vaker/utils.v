@@ -59,3 +59,10 @@ pub fn is_type<T>(ptr PtrInfo) bool {
 pub fn cast<T>(ptr PtrInfo) &T {
 	return &T(ptr.ptr)
 }
+
+[inline; unsafe]
+pub fn cast_assign<T>(ptr PtrInfo, value T) {
+	unsafe {
+		*(&T(ptr.ptr)) = value
+	}
+}
