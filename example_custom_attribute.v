@@ -47,13 +47,13 @@ fn multiple_type(ptr vaker.PtrInfo) {
 
 	// alternative: check by type idx (Enhanced way to check type)
 	unsafe {
-		if vaker.is_type<int>(ptr.type_idx) {
+		if vaker.is_type<int>(ptr) {
 			// int
-			pointer := &int(ptr.ptr)
+			pointer := vaker.cast<int>(ptr)
 			*pointer = 50
-		} else if vaker.is_type<i64>(ptr.type_idx) {
+		} else if vaker.is_type<i64>(ptr) {
 			// i64
-			pointer := &i64(ptr.ptr)
+			pointer := vaker.cast<i64>(ptr)
 			*pointer = 100
 		}
 		// You don't have to handle the unmatched types, they've been checked before faking phase

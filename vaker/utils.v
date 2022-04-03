@@ -50,6 +50,10 @@ pub fn insert_sep(str string, sep string, step int) string {
 	return b.str()
 }
 
-pub fn is_type<T>(idx int) bool {
-	return T.idx == idx
+pub fn is_type<T>(ptr PtrInfo) bool {
+	return T.idx == ptr.type_idx
+}
+
+pub fn cast<T>(ptr PtrInfo) &T {
+	return &T(ptr.ptr)
 }
