@@ -1,6 +1,7 @@
 module vaker
 
 import rand
+import time
 
 const (
 	default_df           = DataFaker{}
@@ -10,11 +11,11 @@ const (
 
 // Language Boundaries
 pub const (
-	lb_eng = LangaugeBoundary{65, 122, [rune(91), 92, 93, 94, 95, 96]}
+	lb_eng = LangaugeBoundary{65, 122, [91, 92, 93, 94, 95, 96]}
 	lb_chi = LangaugeBoundary{19968, 40869, []}
 	lb_rus = LangaugeBoundary{1025, 1105, []}
-	lb_jpn = LangaugeBoundary{12353, 12534, [rune(12436), 12437, 12438, 12439, 12440, 12441, 12442,
-		12443, 12444, 12445, 12446, 12447, 12448]}
+	lb_jpn = LangaugeBoundary{12353, 12534, [12436, 12437, 12438, 12439, 12440, 12441, 12442, 12443,
+		12444, 12445, 12446, 12447, 12448]}
 	lb_kor = LangaugeBoundary{44032, 55203, []}
 	lb_emj = LangaugeBoundary{126976, 129535, []}
 )
@@ -22,7 +23,7 @@ pub const (
 struct LangaugeBoundary {
 	start   int
 	end     int
-	exclude []rune
+	exclude []int
 }
 
 // Faking data with default options
@@ -42,13 +43,15 @@ pub fn fake_data_wdf<T>(t &T, df &DataFaker) {
 		}
 	} $else $if T is $Map {
 		fake_map(t, df)
+	} $else $if T is time.Time {
+		unix_time(ptr: t, sz: sizeof(T))
 	} $else $if T is $Struct {
 		$for f in T.fields {
 			$if f.typ is string {
 			}
 			// Dummy expression to generate and specify t.$(f.name)'s type
 
-			mut attrs, errors := get_attrs(t.$(f.name), f)
+			mut attrs, errors := get_attrs(t.$(f.name), f, df)
 
 			if errors.len > 0 {
 				for e in errors {
@@ -66,7 +69,7 @@ pub fn fake_data_wdf<T>(t &T, df &DataFaker) {
 	} $else {
 		if !isnil(df.current_attribute_function) {
 			func := *df.current_attribute_function
-			func(ptr: t, sz: sizeof(*t))
+			func(ptr: t, sz: sizeof(*t), type_idx: T.idx)
 			return
 		}
 

@@ -15,10 +15,8 @@ pub fn phone_number(ptr PtrInfo) {
 		s.write_string((rand.intn(10) or { 0 }).str())
 	}
 	str := s.str()
-	pointer := &string(ptr.ptr)
 	unsafe {
-		s.free()
-		*pointer = '${str[..3]}-${str[3..6]}-${str[6..]}'
+		cast_assign(ptr, '${str[..3]}-${str[3..6]}-${str[6..]}')
 	}
 }
 
@@ -29,11 +27,9 @@ pub fn toll_free_phone_number(ptr PtrInfo) {
 		s.write_string((rand.intn(10) or { 0 }).str())
 	}
 	str := s.str()
-	pointer := &string(ptr.ptr)
 	unsafe {
-		s.free()
-		box := vaker.box_digits1[rand.intn(2) or { 1 }]
-		*pointer = '($box) ${str[..3]}-${str[3..]}'
+		box := rand_element(vaker.box_digits1)
+		cast_assign(ptr, '($box) ${str[..3]}-${str[3..]}')
 	}
 }
 
@@ -44,10 +40,8 @@ pub fn e164_phone_number(ptr PtrInfo) {
 		s.write_string((rand.intn(10) or { 0 }).str())
 	}
 	str := s.str()
-	pointer := &string(ptr.ptr)
 	unsafe {
-		s.free()
-		box := vaker.box_digits2[rand.intn(2) or { 1 }]
-		*pointer = '+$box$str'
+		box := rand_element(vaker.box_digits2)
+		cast_assign(ptr, '+$box$str')
 	}
 }

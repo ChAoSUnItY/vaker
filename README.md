@@ -1,10 +1,11 @@
 # vaker
-A light-weight data faker written in V Lang.
+> Light-weight data faker built in V to generate massive amounts of fake (but realistic) data for testing and development.
 
-[![ Vaker-doc - Document](https://img.shields.io/badge/_Vaker--doc-Document-2ea44f?logo=V)](https://chaosunity.github.io/Vaker-doc/)
+[![Vaker-doc - Document](https://img.shields.io/badge/_Vaker--doc-Document-2ea44f?logo=V)](https://chaosunity.github.io/Vaker-doc/)
 
 ## Usage
 
+### Basic
 ```v
 import vaker
 
@@ -14,11 +15,74 @@ fn main() {
 }
 ```
 
+### Credit Card
+```v
+import vaker
+
+// Don't add [required] so you don't have to assign all values at start
+struct MemberInfo {
+	member_name        string ['vaker:name']
+	credit_card_type   string ['vaker:cc_type']
+	credit_card_number string ['vaker:cc_number']
+}
+
+fn main() {
+	a := MemberInfo{}
+	vaker.fake_data(&a)
+}
+```
+
+### Geo-related data
+```v
+import vaker
+
+struct GeoData {
+	location  Location
+	email	  string   ['vaker:email']
+	user_name string   ['vaker:user_name']
+}
+
+struct Location {
+	longtitude string ['vaker:long']
+	latitude   string ['vaker:lat']
+}
+
+fn main() {
+	a := GeoData{}
+	vaker.fake_data(&a)
+}
+```
+
+### Custom faking functions
+> You can find the custom faking function example in [example_custom_attribute.v](/example_custom_attribute.v)
+To add custom faking functions:
+
+1. Clone a DataFaker
+```v
+mut df := vaker.new_df()
+```
+
+2. register a unit (or domain)
+```v
+df.register('your unit')
+```
+
+3. create a faking function, faking function must be `fn (vaker.PtrInfo)`, you'll need to provide a type parameter to specify which type your faking function at least support
+```v
+df.register_fn<TypeHere>('your domain', 'your faking function's name', faking_function_ptr) ?
+```
+
+4. (Optional) to support more types to be accepted by your faking function, call `vaker.DataFaker#add_type<T>(string, string)`
+```v
+// add support for string type
+df.add_type<string>('your unit', 'your faking function's name') ?
+```
+
 ## Supported Data Types
 
 Vaker supports:  
 `[]T`, `map[K]V`, `string`, `rune`, `bool`, `i8`, `i16`,  
-`int`, `i64`, `byte`, `u16`, `u32`, `u64`, `f32`, `f64`, `struct`
+`int`, `i64`, `byte`, `u16`, `u32`, `u64`, `f32`, `f64`, `struct`, `time.Time`
 
 **while:**
 ***every type symbols: T, K, V, isn't interface or sized array (Unstable for now)***
@@ -29,6 +93,10 @@ Vaker does not support faking:
 `interface`, `T[]! (Sized array)`
 
 See [Limitations](#limitations)
+
+## Supported Attributes
+
+See [example.v](./example.v) for full attribute list and their effects.
 
 ## Spec
 

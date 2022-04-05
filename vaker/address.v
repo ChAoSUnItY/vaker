@@ -5,39 +5,31 @@ import rand
 [inline]
 pub fn latitude(ptr PtrInfo) {
 	latitude := (rand.f32() * 360) - 90
-	match ptr.sz {
-		4 {
-			pointer := &f32(ptr.ptr)
-			unsafe {
-				*pointer = latitude
+	unsafe {
+		match ptr.sz {
+			4 {
+				cast_assign<f32>(ptr, latitude)
 			}
-		}
-		8 {
-			pointer := &f64(ptr.ptr)
-			unsafe {
-				*pointer = latitude
+			8 {
+				cast_assign<f64>(ptr, latitude)
 			}
+			else {}
 		}
-		else {}
 	}
 }
 
 [inline]
 pub fn longitude(ptr PtrInfo) {
 	longitude := (rand.f32() * 360) - 180
-	match ptr.sz {
-		4 {
-			pointer := &f32(ptr.ptr)
-			unsafe {
-				*pointer = longitude
+	unsafe {
+		match ptr.sz {
+			4 {
+				cast_assign<f32>(ptr, longitude)
 			}
-		}
-		8 {
-			pointer := &f64(ptr.ptr)
-			unsafe {
-				*pointer = longitude
+			8 {
+				cast_assign<f64>(ptr, longitude)
 			}
+			else {}
 		}
-		else {}
 	}
 }
