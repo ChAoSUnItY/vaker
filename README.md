@@ -75,7 +75,7 @@ df.register_fn<TypeHere>('your domain', 'your faking function's name', faking_fu
 4. (Optional) to support more types to be accepted by your faking function, call `vaker.DataFaker#add_type<T>(string, string)`
 ```v
 // add support for string type
-df.add_type<string>('your unit', 'your faking function's name') ?
+df.add_type<string>('your unit', 'your faking function\'s name') ?
 ```
 
 ## Supported Data Types
