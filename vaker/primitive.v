@@ -10,7 +10,7 @@ struct PrimitiveInvokers {
 	i16_invoker    fn (df &DataFaker) i16
 	int_invoker    fn (df &DataFaker) int
 	i64_invoker    fn (df &DataFaker) i64
-	byte_invoker   fn (df &DataFaker) byte
+	byte_invoker   fn (df &DataFaker) u8
 	u16_invoker    fn (df &DataFaker) u16
 	u32_invoker    fn (df &DataFaker) u32
 	u64_invoker    fn (df &DataFaker) u64
@@ -49,8 +49,8 @@ const (
 		i64_invoker: fn (df &DataFaker) i64 {
 			return gen<i64>(df)
 		}
-		byte_invoker: fn (df &DataFaker) byte {
-			return byte(gen<u64>(df))
+		byte_invoker: fn (df &DataFaker) u8 {
+			return u8(gen<u64>(df))
 		}
 		u16_invoker: fn (df &DataFaker) u16 {
 			return u16(gen<u64>(df))
