@@ -36,10 +36,8 @@ pub fn fake_data<T>(t &T) {
 [inline]
 pub fn fake_data_wdf<T>(t &T, df &DataFaker) {
 	$if T is $Array {
-		unsafe {
-			for i in 0 .. t.len {
-				fake_data_wdf(&t[i], df)
-			}
+		for i in 0 .. t.len {
+			fake_data_wdf(&t[i], df)
 		}
 	} $else $if T is $Map {
 		fake_map(t, df)
