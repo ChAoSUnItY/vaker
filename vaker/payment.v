@@ -43,6 +43,6 @@ pub fn cc_number(ptr PtrInfo) {
 	prefix := rand_element(card.prefixes)
 
 	unsafe {
-		cast_assign(ptr, '$prefix${rand_digit_string(card.length - prefix.str().len)}')
+		cast_assign(ptr, '${prefix}${rand_digit_string(card.length - prefix.str().len)}')
 	}
 }

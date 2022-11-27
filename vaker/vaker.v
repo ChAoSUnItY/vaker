@@ -28,13 +28,13 @@ struct LangaugeBoundary {
 
 // Faking data with default options
 [inline]
-pub fn fake_data<T>(t &T) {
-	fake_data_wdf<T>(t, &vaker.default_df)
+pub fn fake_data[T](t &T) {
+	fake_data_wdf[T](t, &vaker.default_df)
 }
 
 // Faking data with custom options
 [inline]
-pub fn fake_data_wdf<T>(t &T, df &DataFaker) {
+pub fn fake_data_wdf[T](t &T, df &DataFaker) {
 	$if T is $Array {
 		unsafe {
 			for i in 0 .. t.len {
@@ -74,13 +74,13 @@ pub fn fake_data_wdf<T>(t &T, df &DataFaker) {
 		}
 
 		unsafe {
-			*t = fake_primitive_value<T>(df) or { panic(err) }
+			*t = fake_primitive_value[T](df) or { panic(err) }
 		}
 	}
 }
 
 [inline]
-fn fake_map<K, V>(m &map[K]V, df &DataFaker) {
+fn fake_map[K, V](m &map[K]V, df &DataFaker) {
 	$if K is string {
 	}
 	// Dummy expression to generate and specify K type
@@ -91,8 +91,8 @@ fn fake_map<K, V>(m &map[K]V, df &DataFaker) {
 	fake_entry_count := rand.int_in_range(df.min_map_len, df.max_map_len) or { panic(err) }
 
 	for _ in 0 .. fake_entry_count {
-		key := fake_primitive_value<K>(df) or { panic(err) }
-		value := fake_primitive_value<V>(df) or { panic(err) }
+		key := fake_primitive_value[K](df) or { panic(err) }
+		value := fake_primitive_value[V](df) or { panic(err) }
 
 		unsafe {
 			(*m)[key] = value
@@ -101,7 +101,7 @@ fn fake_map<K, V>(m &map[K]V, df &DataFaker) {
 }
 
 [inline]
-fn fake_primitive_value<T>(df &DataFaker) ?T {
+fn fake_primitive_value[T](df &DataFaker) ?T {
 	$if T is string {
 		return df.primitive_invokers.string_invoker(df)
 	} $else $if T is rune {
@@ -129,6 +129,6 @@ fn fake_primitive_value<T>(df &DataFaker) ?T {
 	} $else $if T is f64 {
 		return df.primitive_invokers.f64_invoker(df)
 	} $else {
-		return error('type $T.name is not an primitive type')
+		return error('type ${T.name} is not an primitive type')
 	}
 }

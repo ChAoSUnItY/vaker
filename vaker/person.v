@@ -528,7 +528,7 @@ pub fn name(ptr PtrInfo) {
 	}
 	last_name := rand_element(vaker.last_names)
 	unsafe {
-		cast_assign(ptr, '$title $first_name $last_name')
+		cast_assign(ptr, '${title} ${first_name} ${last_name}')
 	}
 }
 

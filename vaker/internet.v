@@ -16,7 +16,7 @@ pub fn email(ptr PtrInfo) {
 	email_domain := rand_string(7, &lb_eng)
 	email_tld := rand_element(vaker.tld)
 	unsafe {
-		cast_assign(ptr, '$email_name@${email_domain}.$email_tld')
+		cast_assign(ptr, '${email_name}@${email_domain}.${email_tld}')
 	}
 }
 
@@ -31,7 +31,7 @@ pub fn mac_address(ptr PtrInfo) {
 pub fn domain_name(ptr PtrInfo) {
 	domain_tld := rand_element(vaker.tld)
 	unsafe {
-		cast_assign(ptr, '${rand_string(7, &lb_eng)}.$domain_tld')
+		cast_assign(ptr, '${rand_string(7, &lb_eng)}.${domain_tld}')
 	}
 }
 
@@ -40,7 +40,7 @@ pub fn url(ptr PtrInfo) {
 	format := rand_element(vaker.url_formats)
 	count := format.count('%s')
 	domain_tld := rand_element(vaker.tld)
-	domain_name := '${rand_string(7, &lb_eng)}.$domain_tld'
+	domain_name := '${rand_string(7, &lb_eng)}.${domain_tld}'
 
 	if count == 1 {
 		unsafe {
@@ -87,6 +87,6 @@ pub fn password(ptr PtrInfo) {
 pub fn jwt(ptr PtrInfo) {
 	element := rand_string(40, &lb_eng)
 	unsafe {
-		cast_assign(ptr, '${element}.${element}.$element')
+		cast_assign(ptr, '${element}.${element}.${element}')
 	}
 }

@@ -24,53 +24,53 @@ const (
 			mut runes := []rune{cap: df.str_len}
 
 			for i, _ := 0, 0; i < df.str_len; {
-				runes << rune(gen<rune>(df))
+				runes << rune(gen[rune](df))
 				i++
 			}
 
 			return runes.string()
 		}
 		rune_invoker: fn (df &DataFaker) rune {
-			return gen<rune>(df)
+			return gen[rune](df)
 		}
 		bool_invoker: fn (df &DataFaker) bool {
-			b := gen<i64>(df)
+			b := gen[i64](df)
 			return b & 1 != 0
 		}
 		i8_invoker: fn (df &DataFaker) i8 {
-			return i8(gen<i64>(df))
+			return i8(gen[i64](df))
 		}
 		i16_invoker: fn (df &DataFaker) i16 {
-			return i16(gen<i64>(df))
+			return i16(gen[i64](df))
 		}
 		int_invoker: fn (df &DataFaker) int {
-			return int(gen<i64>(df))
+			return int(gen[i64](df))
 		}
 		i64_invoker: fn (df &DataFaker) i64 {
-			return gen<i64>(df)
+			return gen[i64](df)
 		}
 		byte_invoker: fn (df &DataFaker) u8 {
-			return u8(gen<u64>(df))
+			return u8(gen[u64](df))
 		}
 		u16_invoker: fn (df &DataFaker) u16 {
-			return u16(gen<u64>(df))
+			return u16(gen[u64](df))
 		}
 		u32_invoker: fn (df &DataFaker) u32 {
-			return u32(gen<u64>(df))
+			return u32(gen[u64](df))
 		}
 		u64_invoker: fn (df &DataFaker) u64 {
-			return gen<u64>(df)
+			return gen[u64](df)
 		}
 		f32_invoker: fn (df &DataFaker) f32 {
-			return f32(gen<f64>(df))
+			return f32(gen[f64](df))
 		}
 		f64_invoker: fn (df &DataFaker) f64 {
-			return gen<f64>(df)
+			return gen[f64](df)
 		}
 	}
 )
 
-fn gen<T>(df &DataFaker) T {
+fn gen[T](df &DataFaker) T {
 	$if T is i64 {
 		return rand.i64_in_range(df.rand_min_sz, df.rand_max_sz) or { panic(err) }
 	} $else $if T is u64 {
@@ -81,6 +81,6 @@ fn gen<T>(df &DataFaker) T {
 		i := rand.int_in_range(df.lb.start, df.lb.end) or { panic(err) }
 		return rune(i)
 	} $else {
-		panic('Unexpected type $T.name')
+		panic('Unexpected type ${T.name}')
 	}
 }

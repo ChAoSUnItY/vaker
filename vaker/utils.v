@@ -33,7 +33,7 @@ pub fn rand_string(len int, lb &LangaugeBoundary) string {
 }
 
 [inline]
-pub fn rand_element<T>(arr []T) T {
+pub fn rand_element[T](arr []T) T {
 	return arr[rand.intn(arr.len) or { 0 }]
 }
 
@@ -51,12 +51,12 @@ pub fn insert_sep(str string, sep string, step int) string {
 }
 
 [inline]
-pub fn is_type<T>(ptr PtrInfo) bool {
+pub fn is_type[T](ptr PtrInfo) bool {
 	return T.idx == ptr.type_idx
 }
 
 [inline; unsafe]
-pub fn cast_assign<T>(ptr PtrInfo, value T) {
+pub fn cast_assign[T](ptr PtrInfo, value T) {
 	unsafe {
 		*(&T(ptr.ptr)) = value
 	}

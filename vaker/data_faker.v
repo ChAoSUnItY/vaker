@@ -85,7 +85,7 @@ mut:
 		'word':                   word
 		'year':                   year
 	}
-	current_attribute_function &fn (PtrInfo) = voidptr(0)
+	current_attribute_function &fn (PtrInfo) = unsafe { nil }
 }
 
 // Creates a new DataFaker from global one
@@ -107,13 +107,13 @@ pub fn (df DataFaker) has_unit(unit_name string) bool {
 }
 
 // register an attribute function with unit name and attribute name, must specify at least an acceptable type for attribute function to satisfy with
-pub fn (mut df DataFaker) register_fn<T>(unit_name string, attribute_name string, fn_ptr fn (PtrInfo)) ? {
+pub fn (mut df DataFaker) register_fn[T](unit_name string, attribute_name string, fn_ptr fn (PtrInfo)) ? {
 	if unit_name !in df.external_attribute_functions {
-		return error('Unit $unit_name does not exist, call `DataFaker#register(string)` first')
+		return error('Unit ${unit_name} does not exist, call `DataFaker#register(string)` first')
 	}
 
 	if attribute_name in df.external_attribute_functions[unit_name] {
-		return error('Attribute $attribute_name in unit $unit_name already exist')
+		return error('Attribute ${attribute_name} in unit ${unit_name} already exist')
 	}
 
 	df.external_attribute_functions[unit_name][attribute_name] = ExternalAttributeFn{fn_ptr, [
@@ -121,13 +121,13 @@ pub fn (mut df DataFaker) register_fn<T>(unit_name string, attribute_name string
 	], [T.idx]}
 }
 
-pub fn (mut df DataFaker) add_type<T>(unit_name string, attribute_name string) ? {
+pub fn (mut df DataFaker) add_type[T](unit_name string, attribute_name string) ? {
 	if unit_name !in df.external_attribute_functions {
-		return error('Unit $unit_name does not exist, call `DataFaker#register(string)` first')
+		return error('Unit ${unit_name} does not exist, call `DataFaker#register(string)` first')
 	}
 
 	if attribute_name !in df.external_attribute_functions[unit_name] {
-		return error('Attribute $attribute_name does not exist in unit $unit_name')
+		return error('Attribute ${attribute_name} does not exist in unit ${unit_name}')
 	}
 
 	df.external_attribute_functions[unit_name][attribute_name].add_type(T.name, T.idx)

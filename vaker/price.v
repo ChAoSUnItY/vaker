@@ -47,7 +47,7 @@ pub fn amount_with_currency(ptr PtrInfo) {
 	amount := precision(rand.f64() * pow10(intn(9) or { 1 }), intn(3) or { 1 } + 1)
 	currecy := rand_element(vaker.currencies)
 	unsafe {
-		cast_assign(ptr, '$amount $currecy')
+		cast_assign(ptr, '${amount} ${currecy}')
 	}
 }
 

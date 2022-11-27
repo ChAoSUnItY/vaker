@@ -64,11 +64,11 @@ struct Struct {
 // get_attrs can effectively collect valid attributes by asserting type symbol T
 // For example: attribute `str_len` would eprintln when type symbol T is not `string`
 [inline]
-fn get_attrs<T>(_ T, fd &FieldData, df &DataFaker) (Attribute, []IError) {
+fn get_attrs[T](_ T, fd &FieldData, df &DataFaker) (Attribute, []IError) {
 	// Process vaker builtin attribute functions first
 	attrs := fd.attrs.filter(it.starts_with('vaker')).map(it.trim_string_left('vaker:')).map(it.split_any(':='))
 	wrong_type := fn (attribute string, type_name string) IError {
-		return error('Attribute `$attribute` could not apply on type $type_name')
+		return error('Attribute `${attribute}` could not apply on type ${type_name}')
 	}
 	mut errors := []IError{cap: 4}
 	// map[unit_name]map[attribute_name][]args
@@ -83,7 +83,7 @@ fn get_attrs<T>(_ T, fd &FieldData, df &DataFaker) (Attribute, []IError) {
 			continue
 		}
 		binary_search(vaker.builtin_attrs, attribute) or {
-			errors << error('Unexpected vaker attribute $attribute')
+			errors << error('Unexpected vaker attribute ${attribute}')
 			continue
 		}
 
@@ -150,13 +150,13 @@ fn get_attrs<T>(_ T, fd &FieldData, df &DataFaker) (Attribute, []IError) {
 			eaf := df.external_attribute_functions[unit_name][attr_name]
 
 			if T.idx !in eaf.acceptable_type_idxs {
-				errors << error('Unacceptable type `$T.name` for attribute function `$unit_name:$attr_name` which accepts [${eaf.acceptable_type_names.join(', ')}]')
+				errors << error('Unacceptable type `${T.name}` for attribute function `${unit_name}:${attr_name}` which accepts [${eaf.acceptable_type_names.join(', ')}]')
 				continue
 			}
 
 			checked_attrs[unit_name][attr_name] = []
 		} else {
-			errors << error('Unknown attribute function `$unit_name:$attr_name`')
+			errors << error('Unknown attribute function `${unit_name}:${attr_name}`')
 			continue
 		}
 	}
@@ -173,7 +173,7 @@ fn (attr &Attribute) skip() bool {
 
 // Clone and modify DataFaker's field to satisfy field's attribute.
 // Returns a modified version of DataFaker, does not modify original one.
-fn mod<T>(_ &T, attr &Attribute, df &DataFaker) DataFaker {
+fn mod[T](_ &T, attr &Attribute, df &DataFaker) DataFaker {
 	mut cm_df := *df
 
 	mut keys := df.attribute_functions.keys()

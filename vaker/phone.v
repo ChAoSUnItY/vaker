@@ -29,7 +29,7 @@ pub fn toll_free_phone_number(ptr PtrInfo) {
 	str := s.str()
 	unsafe {
 		box := rand_element(vaker.box_digits1)
-		cast_assign(ptr, '($box) ${str[..3]}-${str[3..]}')
+		cast_assign(ptr, '(${box}) ${str[..3]}-${str[3..]}')
 	}
 }
 
@@ -42,6 +42,6 @@ pub fn e164_phone_number(ptr PtrInfo) {
 	str := s.str()
 	unsafe {
 		box := rand_element(vaker.box_digits2)
-		cast_assign(ptr, '+$box$str')
+		cast_assign(ptr, '+${box}${str}')
 	}
 }

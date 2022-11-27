@@ -8,10 +8,10 @@ pub fn latitude(ptr PtrInfo) {
 	unsafe {
 		match ptr.sz {
 			4 {
-				cast_assign<f32>(ptr, latitude)
+				cast_assign[f32](ptr, latitude)
 			}
 			8 {
-				cast_assign<f64>(ptr, latitude)
+				cast_assign[f64](ptr, latitude)
 			}
 			else {}
 		}
@@ -24,10 +24,10 @@ pub fn longitude(ptr PtrInfo) {
 	unsafe {
 		match ptr.sz {
 			4 {
-				cast_assign<f32>(ptr, longitude)
+				cast_assign[f32](ptr, longitude)
 			}
 			8 {
-				cast_assign<f64>(ptr, longitude)
+				cast_assign[f64](ptr, longitude)
 			}
 			else {}
 		}

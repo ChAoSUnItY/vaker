@@ -11,9 +11,9 @@ struct Example {
 fn main() {
 	mut custom_df := vaker.new_df()
 	custom_df.register('chaos')
-	custom_df.register_fn<string>('chaos', 'my_word', my_word) ?
-	custom_df.register_fn<int>('chaos', 'multiple_type', multiple_type) ?
-	custom_df.add_type<i64>('chaos', 'multiple_type') ?
+	custom_df.register_fn[string]('chaos', 'my_word', my_word)?
+	custom_df.register_fn[int]('chaos', 'multiple_type', multiple_type)?
+	custom_df.add_type[i64]('chaos', 'multiple_type')?
 	ex := Example{}
 	vaker.fake_data_wdf(&ex, &custom_df)
 	println(ex)
@@ -47,12 +47,12 @@ fn multiple_type(ptr vaker.PtrInfo) {
 
 	// alternative: check by type idx (Enhanced way to check type)
 	unsafe {
-		if vaker.is_type<int>(ptr) {
+		if vaker.is_type[int](ptr) {
 			// int
-			vaker.cast_assign<int>(ptr, 50)
-		} else if vaker.is_type<i64>(ptr) {
+			vaker.cast_assign[int](ptr, 50)
+		} else if vaker.is_type[i64](ptr) {
 			// i64
-			vaker.cast_assign<i64>(ptr, 100)
+			vaker.cast_assign[i64](ptr, 100)
 		}
 		// You don't have to handle the unmatched types, they've been checked before faking phase
 	}
